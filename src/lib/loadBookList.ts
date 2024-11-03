@@ -7,6 +7,7 @@ import type { Book } from "./types/Book";
  * @returns
  */
 export const loadBookList = async (page: number): Promise<Book[]> => {
+	console.log(`${page}번 페이지로의 요청이 발생하였습니다.`);
 	return [
 		{
 			id: 100,
