@@ -2,8 +2,12 @@
 	import MainHeader from '../../components/MainHeader.svelte';
 </script>
 
-<MainHeader></MainHeader>
+<div class="flex flex-row justify-center">
+	<div class="container">
+		<MainHeader></MainHeader>
 
-<div>
-	<slot />
+		<div>
+			<slot />
+		</div>
+	</div>
 </div>
