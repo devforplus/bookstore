@@ -1,14 +1,15 @@
 import { z } from "zod";
+import { SexSchema } from "./Sex";
 
 /**
  * 유저 정보 스키마
  */
 export const UserWithCredentialSchema = z.object({
-	id: z.number().int().min(0),
+	id: z.string(),
 	name: z.string(),
 	password: z.string(),
 	email: z.string().email(),
-	sex: z.string(),
+	sex: SexSchema,
 	phone: z.string(),
 	delivery_address: z.string(),
 });
