@@ -62,10 +62,14 @@
 		<Input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" />
 	</div>
 
-	<button
-		type="submit"
-		class="mb-2 mr-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-	>
-		로그인
-	</button>
+	<div class="flex flex-row place-items-center justify-between">
+		<button
+			type="submit"
+			class="mb-2 mr-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+		>
+			로그인
+		</button>
+
+		<a href="/auth/register">계정이 없으신가요?</a>
+	</div>
 </form>
