@@ -5,11 +5,12 @@
 	import { bookList } from '../../../stores/bookList';
 </script>
 
+<!-- TODO: 검토 및 기능 추가 필요 -->
 {#if $bookList === undefined}
 	<p>책 데이터가 아직 로드되지 않았습니다</p>
 {:else}
-	<div class="flex flex-col items-center">
-		<div class="flex flex-col">
+	<div>
+		<div>
 			{#each $bookList as bookData}
 				<BookInfo book={bookData} />
 			{/each}

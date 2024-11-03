@@ -4,5 +4,4 @@
 </script>
 
 <MainHeader></MainHeader>
-<h1>추천책!</h1>
-<BookCover imgsrc="/Book1.png" />
+<!-- TODO: 추천도서 기능 추가? -->
