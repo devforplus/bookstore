@@ -1,25 +1,25 @@
 <script>
-	import { onDestroy, onMount } from 'svelte';
-	import { loadBookList } from '$lib/loadBookList';
-	import { bookList } from '../stores/bookList';
-
 	import '../app.css';
-	import { loadUserList } from '$lib/loadUserList';
-	import { userList } from '../stores/userList';
-
-	onMount(async () => {
-		// TODO: 페이지 번호 받아오는 부분 추가하거나, 필요 하에 "이 데이터 로드 로직"을 이동시키기
-		const _bookList = await loadBookList(0);
-
-		bookList.set(_bookList);
-	});
-
-	onDestroy(() => {
-		bookList.set(undefined);
-		userList.set(undefined);
-	});
 </script>
 
-<div class="h-screen">
+<svelte:head>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
+		rel="stylesheet"
+	/>
+</svelte:head>
+
+<div class="w-screen">
 	<slot></slot>
 </div>
+
+<style>
+	:global(body) {
+		font-family: 'Noto Sans KR', sans-serif;
+		font-optical-sizing: auto;
+		font-weight: 400;
+		font-style: normal;
+	}
+</style>
