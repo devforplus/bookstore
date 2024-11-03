@@ -1,56 +1,117 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import { Select, Label } from 'flowbite-svelte';
+	import Toast from 'typescript-toastify';
+	import { SexSchema } from '$lib/types/Sex';
+	import type { UserWithCredential } from '$lib/types/UserWithCredential';
+	import { Select, Label, Input } from 'flowbite-svelte';
+	import { writable } from 'svelte/store';
+	import Brand from '../../../components/Brand.svelte';
+	import { showToast } from '$lib/showToast';
 
-	// biome-ignore lint/style/useConst: <explanation>
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-	let selected: string | any = null;
-	const sex = [
-		{ value: 'women', name: '여자' },
-		{ value: 'men', name: '남자' }
-	];
+	// 사용자 정보를 관리하는 writable 스토어
+	const user = writable<UserWithCredential & { passwordConfirm: string }>({
+		id: '',
+		name: '',
+		password: '',
+		passwordConfirm: '',
+		email: '',
+		phone: '',
+		sex: '남자',
+		delivery_address: ''
+	});
+
+	// 성별 선택 옵션 생성
+	const SexSelection: { value: string; name: string }[] = SexSchema.options.map((option) => {
+		return {
+			value: option,
+			name: option
+		};
+	});
+
+	/** 회원가입 수행 함수 */
+	const register = async () => {
+		// 비밀번호와 비밀번호 확인 입력 검사
+		if (!$user.password) {
+			showToast({}, '비밀번호가 입력되지 않았습니다');
+			return;
+		}
+
+		if (!$user.passwordConfirm) {
+			showToast({}, '비밀번호 확인이 입력되지 않았습니다');
+			return;
+		}
+
+		// 비밀번호 일치 여부 검사
+		if ($user.password !== $user.passwordConfirm) {
+			showToast({}, '비밀번호가 일치하지 않습니다.');
+			return;
+		}
+
+		// 서버에 회원가입 요청
+		try {
+			const response = await fetch('/api/register', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify($user)
+			});
+
+			const result = await response.json();
+
+			// 응답에 따라 메시지 표시
+			if (result.ok) {
+				showToast({}, result.message);
+			} else {
+				showToast({}, result.message);
+			}
+		} catch (error) {
+			// 네트워크 오류 등 처리
+			console.error('회원가입 요청 중 오류 발생:', error);
+			showToast({}, '회원가입 요청 중 오류가 발생했습니다.');
+		}
+	};
 </script>
 
-<h1 class="py-4 text-4xl font-bold">회원가입</h1>
+<div class="flex flex-row place-items-center justify-center gap-2">
+	<Brand />
+	<span class="py-4 text-3xl font-bold">회원가입</span>
+</div>
 
-<form class="w-1/2 space-y-4 px-4" action="?/register" method="post" use:enhance>
+<form class="space-y-4 px-4" on:submit|preventDefault={register}>
 	<div>
-		<label for="id">아이디</label>
-		<input type="text" id="id" name="username" />
+		<Label for="name">이름</Label>
+		<Input type="text" id="name" name="name" bind:value={$user.name} />
 	</div>
 	<div>
-		<label for="password">비밀번호</label>
-		<input type="password" id="password" name="password" />
+		<Label for="id">아이디</Label>
+		<Input type="text" id="id" name="username" bind:value={$user.id} />
 	</div>
 	<div>
-		<label for="password">비밀번호 확인</label>
-		<input type="password" id="pwdcheck" name="pwdcheck" />
+		<Label for="password">비밀번호</Label>
+		<Input type="password" id="password" name="password" bind:value={$user.password} />
 	</div>
 	<div>
-		<label for="email">이메일</label>
-		<input type="email" id="email" name="email" />
+		<Label for="pwdcheck">비밀번호 확인</Label>
+		<Input type="password" id="pwdcheck" name="pwdcheck" bind:value={$user.passwordConfirm} />
+	</div>
+	<div>
+		<Label for="email">이메일</Label>
+		<Input type="email" id="email" name="email" bind:value={$user.email} />
 	</div>
 	<div>
 		<Label>
-			Select an option
-			<Select class="mt-2" items={sex} bind:value={selected} />
+			성별 선택
+			<Select class="mt-2" items={SexSelection} bind:value={$user.sex} />
 		</Label>
 	</div>
 	<div>
-		<label for="phonenumber">전화번호</label>
-		<input type="text" id="phonenumber" name="phonenumber" />
+		<Label for="phonenumber">전화번호</Label>
+		<Input type="text" id="phonenumber" name="phonenumber" bind:value={$user.phone} />
 	</div>
-	<button type="submit">회원가입</button>
-</form>
 
-<style lang="postcss">
-	label {
-		@apply mb-2 block text-sm font-medium text-green-700 dark:text-green-500;
-	}
-	input {
-		@apply block w-full rounded-lg border border-green-500 bg-green-50 p-2.5 text-sm text-green-900 placeholder-green-700 focus:border-green-500 focus:ring-green-500 dark:border-green-500 dark:bg-gray-700 dark:text-green-400 dark:placeholder-green-500;
-	}
-	button {
-		@apply mb-2 mr-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800;
-	}
-</style>
+	<button
+		type="submit"
+		class="mb-2 mr-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+		>회원가입</button
+	>
+</form>
