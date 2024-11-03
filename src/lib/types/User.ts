@@ -1,16 +1,13 @@
-import { z } from "zod";
+import type { z } from "zod";
+import { UserWithCredentialSchema } from "./UserWithCredential";
 
 /**
  * 유저 정보 스키마
  */
-export const UserSchema = z.object({
-	id: z.number().int().min(0),
-	name: z.string(),
-	password: z.string(),
-	email: z.string().email(),
-	sex: z.string(),
-	phone: z.string(),
-	delivery_address: z.string(),
+export const UserSchema = UserWithCredentialSchema.omit({
+	password: true,
+	phone: true,
+	delivery_address: true,
 });
 
 /**
@@ -18,11 +15,8 @@ export const UserSchema = z.object({
  *
  * - `id` : 유저 ID
  * - `name` : 유저 이름
- * - `password` : 유저 비밀번호
  * - `email` : 유저 이메일
  * - `sex` : 유저 성별
- * - `phone` : 유저 폰 번호
- * - `delivery_address` : 유저 배송지
  */
 export type User = z.infer<typeof UserSchema>;
 
