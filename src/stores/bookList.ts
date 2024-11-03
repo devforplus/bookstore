@@ -3,7 +3,6 @@ import { writable } from "svelte/store";
 
 import type { Book } from "$lib/types/Book";
 import { currentPage } from "./currentPage";
-import { onDestroy } from "svelte";
 
 /**
  * ## 책 리스트 상태
@@ -14,17 +13,13 @@ import { onDestroy } from "svelte";
 export const bookList = (() => {
 	const $bookList = writable<Book[] | undefined>(undefined);
 
-	const unsubscribeCurrentPage = currentPage.subscribe(async ($currentPage) => {
+	currentPage.subscribe(async ($currentPage) => {
 		try {
 			const bookData = await loadBookList($currentPage);
 			$bookList.set(bookData);
 		} catch (err) {
 			$bookList.set(undefined);
 		}
-	});
-
-	onDestroy(() => {
-		unsubscribeCurrentPage();
 	});
 
 	return $bookList;
