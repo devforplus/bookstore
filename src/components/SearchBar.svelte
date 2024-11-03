@@ -1,7 +1,4 @@
-<script lang="ts">
-</script>
-
-<div>
+<div class="w-full">
 	<form>
 		<label for="search" class="sr-only mb-2 text-sm font-medium text-gray-900 dark:text-white"
 			>Search</label
