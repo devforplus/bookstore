@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Login from './login.svelte';
-	import Register from './register.svelte';
+	import Login from './LoginButton.svelte';
+	import Register from './RegisterButton.svelte';
 	import SearchBar from './SearchBar.svelte';
 	import Brand from './Brand.svelte';
 
@@ -8,7 +8,6 @@
 	import { CartOutline } from 'flowbite-svelte-icons';
 </script>
 
-<!-- <header class="relative flex items-center justify-between border-b border-gray-200 bg-white p-8"> -->
 <header class="flex flex-row place-items-center justify-between gap-4 p-8">
 	<Brand></Brand>
 
