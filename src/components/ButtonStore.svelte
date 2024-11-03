@@ -5,16 +5,20 @@
 
 	import type { Book } from '$lib/types/Book';
 
-	// readable: "읽기 전용 상태"
-	// writable: "쓰기도 가능한 상태"
-	// dervied: "상속한 상태"; 특정 상태들이 업데이트 되면, 업데이트 된 상태를 사용하여 만드는 상태
+	import { Button, Modal } from 'flowbite-svelte';
+	import { ExclamationCircleOutline } from 'flowbite-svelte-icons';
+	import { writable } from 'svelte/store';
 
 	export let bookData: Book;
 
+	const popupModal = writable(false);
+
 	function gotoCart() {
+		goto('/ops/cart');
+	}
+
+	function InCart() {
 		$cart = [...$cart, bookData];
-		// NOTE: 상대경로 금지
-		return goto('/ops/cart');
 	}
 </script>
 
@@ -22,6 +26,21 @@
 	<button
 		class="mb-2 me-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
 		type="button"
-		on:click={gotoCart}>장바구니</button
+		on:click={() => {
+			$popupModal = true;
+			InCart();
+		}}>장바구니</button
 	>
 </div>
+
+<Modal bind:open={$popupModal} size="xs" autoclose>
+	<div class="text-center">
+		<ExclamationCircleOutline class="mx-auto mb-4 h-12 w-12 text-gray-400 dark:text-gray-200" />
+		<h3>상품이 장바구니에 담겼습니다.</h3>
+		<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+			장바구니로 이동하시겠습니까?
+		</h3>
+		<Button color="blue" class="me-2" on:click={gotoCart}>확인</Button>
+		<Button color="alternative">취소</Button>
+	</div>
+</Modal>
