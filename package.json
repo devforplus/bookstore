@@ -12,7 +12,8 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^3.0.0",
+		"@iconify/svelte": "^4.0.2",
+		"@sveltejs/adapter-static": "^3.0.6",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@tailwindcss/typography": "^0.5.14",
@@ -28,7 +29,12 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@macfja/svelte-persistent-store": "^2.4.2",
+		"flowbite": "^2.5.2",
 		"flowbite-svelte": "^0.47.1",
+		"flowbite-svelte-icons": "1",
+		"tailwind-merge": "^2.5.4",
+		"typescript-toastify": "^1.0.4",
 		"zod": "^3.23.8"
 	}
 }
