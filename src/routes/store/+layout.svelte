@@ -4,6 +4,4 @@
 
 <MainHeader></MainHeader>
 
-<div>
-	<slot />
-</div>
+<slot />
