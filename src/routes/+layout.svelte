@@ -1,4 +1,7 @@
 <script>
+	import { Toast } from 'flowbite-svelte';
+	import { toastList } from '../stores/toastList';
+	import { FireOutline } from 'flowbite-svelte-icons';
 	import '../app.css';
 </script>
 
@@ -15,6 +18,18 @@
 	<div class="container">
 		<slot></slot>
 	</div>
+</div>
+
+<div class="absolute bottom-0 right-0 flex flex-col gap-1">
+	{#each $toastList as props}
+		<Toast {...props}>
+			<FireOutline
+				slot="icon"
+				class="h-6 w-6 bg-primary-100 text-primary-500 dark:bg-primary-800 dark:text-primary-200"
+			/>
+			{props.message}
+		</Toast>
+	{/each}
 </div>
 
 <style>
