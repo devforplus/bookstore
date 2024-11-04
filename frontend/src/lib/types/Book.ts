@@ -2,7 +2,7 @@ import { z } from "zod";
 
 /** 책 정보 스키마 */
 export const BookSchema = z.object({
-	id: z.number().int().min(0),
+	id: z.string(),
 	name: z.string(),
 	price: z.number().int().min(0),
 	genre: z.string(),
