@@ -12,6 +12,11 @@
 	export let hideEnCart: boolean = false;
 </script>
 
+<!-- 
+	TODO: 장바구니에서 상품 제거하는 기능 추가하기
+	제품 수량을 0 이하로 내리면 제거되도록 만드는 것도 가능함
+ -->
+
 <div class="flex items-start gap-4 rounded-lg border border-gray-300 bg-white p-5 shadow-md">
 	<div class="mr-4 h-auto w-24">
 		<img src={book.coverUrl} alt={book.name} />
