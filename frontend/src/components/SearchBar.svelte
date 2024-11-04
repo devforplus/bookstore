@@ -1,9 +1,14 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { keyword } from '../stores/keyword';
 </script>
 
 <div class="w-full">
-	<form>
+	<form
+		on:submit|preventDefault={() => {
+			goto('/store/search');
+		}}
+	>
 		<label for="search" class="sr-only mb-2 text-sm font-medium text-gray-900 dark:text-white"
 			>Search</label
 		>
