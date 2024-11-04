@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
 }
 
 generator dbml {
@@ -25,11 +26,12 @@ model users {
   sex      String // "female" | "male"
   email    String
   phone    String
-  address  String
+  address  Int
 
-  orders    orders[]
-  carts     carts[]
-  addresses addresses[]
+  addresses addresses @relation(fields: [address], references: [id])
+
+  orders orders[]
+  carts  carts[]
 }
 
 model addresses {
@@ -37,9 +39,8 @@ model addresses {
   zip_code        String
   address         String
   detailedAddress String
-  owner_id        String
 
-  users users @relation(fields: [owner_id], references: [id])
+  users users[]
 }
 
 model books {
@@ -86,6 +87,7 @@ model genres {
 model carts {
   cart_owner_id String
   book_id       String
+  quantity      Int    @default(1) // 수량 
 
   users users @relation(fields: [cart_owner_id], references: [id])
   books books @relation(fields: [book_id], references: [id])

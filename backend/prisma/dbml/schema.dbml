@@ -9,10 +9,10 @@ Table users {
   sex String [not null]
   email String [not null]
   phone String [not null]
-  address String [not null]
+  address Int [not null]
+  addresses addresses [not null]
   orders orders [not null]
   carts carts [not null]
-  addresses addresses [not null]
 }
 
 Table addresses {
@@ -20,7 +20,6 @@ Table addresses {
   zip_code String [not null]
   address String [not null]
   detailedAddress String [not null]
-  owner_id String [not null]
   users users [not null]
 }
 
@@ -67,6 +66,7 @@ Table genres {
 Table carts {
   cart_owner_id String [not null]
   book_id String [not null]
+  quantity Int [not null, default: 1]
   users users [not null]
   books books [not null]
 
@@ -75,7 +75,7 @@ Table carts {
   }
 }
 
-Ref: addresses.owner_id > users.id
+Ref: users.address > addresses.id
 
 Ref: books.genre_id > genres.id
 
