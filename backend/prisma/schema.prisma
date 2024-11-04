@@ -64,6 +64,8 @@ model orders {
   total_price Int // 주문 총액
   orderer     String // 주문자
 
+  canceled DateTime? // 취소 시점 (if null: 취소되지 않음, otherwise: 이 시점에 취소됨)
+
   users        users          @relation(fields: [orderer], references: [id])
   orderDetails orderDetails[]
 }

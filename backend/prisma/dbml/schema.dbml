@@ -42,6 +42,7 @@ Table orders {
   order_date DateTime [default: `now()`, not null]
   total_price Int [not null]
   orderer String [not null]
+  canceled DateTime
   users users [not null]
   orderDetails orderDetails [not null]
 }
