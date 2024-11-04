@@ -7,7 +7,7 @@ import { UserWithCredentialSchema } from "./UserWithCredential";
 export const UserSchema = UserWithCredentialSchema.omit({
 	password: true,
 	phone: true,
-	delivery_address: true,
+	detail_address: true,
 });
 
 /**
