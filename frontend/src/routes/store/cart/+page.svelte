@@ -2,6 +2,8 @@
 	import { cart } from '../../../stores/cart';
 </script>
 
+<!-- TODO: 장바구니 페이지 완성하기 -->
+
 <div>
 	<ul>
 		{#each $cart as { id, name, price, genre, author, publishedDate, coverUrl }, i}
