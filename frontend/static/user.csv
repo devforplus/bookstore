@@ -1,6 +1,0 @@
-﻿id,name,password,sex,email,phone,address,detail_address
-user1,김민수,pass1234,male,kim@example.com,010-1234-5678,서울시 강남구,가야로
-user2,이영희,pass5678,female,lee@example.com,010-2345-6789,부산시 해운대구,삼계로
-user3,박준호,passabcd,male,park@example.com,010-3456-7890,인천시 남동구,부원로
-user4,최지혜,passefgh,female,choi@example.com,010-4567-8901,대구시 수성구,김해로
-user5,정수민,passijkl,female,jung@example.com,010-5678-9012,광주시 서구,수원로
