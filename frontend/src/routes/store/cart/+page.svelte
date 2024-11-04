@@ -11,7 +11,7 @@
 	<div class="grid grid-cols-[8fr,2fr] gap-4">
 		<div class="flex flex-col gap-1">
 			{#each $cart as book}
-				<BookInfo {book}></BookInfo>
+				<BookInfo {book} hideEnCart={true}></BookInfo>
 			{/each}
 		</div>
 
