@@ -2,17 +2,22 @@
 	import Brand from '../../../components/Brand.svelte';
 	import { showToast } from '$lib/showToast';
 	import { Input, Label } from 'flowbite-svelte';
+	import { writable } from 'svelte/store';
+	import type { UserWithCredential } from '$lib/types/UserWithCredential';
 
-	// TODO: 로그인 아이디, 비밀번호를 입력받을 상태 추가
-	// TODO: 관련 로직 추가
+	const input = writable<Pick<UserWithCredential, 'id' | 'password'>>({
+		id: '',
+		password: ''
+	});
+
+	// TODO: 비밀번호 보낼 때 평문말고 암호문으로 보내야할랑가
 
 	/** 로그인 수행 함수 */
 	const login = async () => {
-		const username = (document.getElementById('username') as HTMLInputElement).value;
-		const password = (document.getElementById('password') as HTMLInputElement).value;
+		const { id, password } = $input;
 
 		// 입력 검사
-		if (!username) {
+		if (!id) {
 			showToast({}, '아이디가 입력되지 않았습니다.');
 			return;
 		}
@@ -28,7 +33,7 @@
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ username, password })
+				body: JSON.stringify({ id, password })
 			});
 
 			const result = await response.json();
@@ -55,17 +60,33 @@
 <form class="space-y-4 px-4" on:submit|preventDefault={login}>
 	<div>
 		<Label for="username">아이디</Label>
-		<Input type="text" id="username" name="username" placeholder="아이디를 입력하세요" />
+		<Input
+			type="text"
+			id="username"
+			name="username"
+			placeholder="아이디를 입력하세요"
+			bind:value={$input.id}
+		/>
 	</div>
 	<div>
 		<Label for="password">비밀번호</Label>
-		<Input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" />
+		<Input
+			type="password"
+			id="password"
+			name="password"
+			placeholder="비밀번호를 입력하세요"
+			bind:value={$input.password}
+		/>
 	</div>
 
-	<button
-		type="submit"
-		class="mb-2 mr-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-	>
-		로그인
-	</button>
+	<div class="flex flex-row place-items-center justify-between">
+		<button
+			type="submit"
+			class="mb-2 mr-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+		>
+			로그인
+		</button>
+
+		<a href="/auth/register">계정이 없으신가요?</a>
+	</div>
 </form>
