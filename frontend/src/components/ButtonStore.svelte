@@ -16,7 +16,17 @@
 	/** 장바구니 페이지로 이동하는 함수 */
 	const gotoCart = () => goto('/store/cart');
 	/** 장바구니에 도서 데이터를 삽입하는 함수 */
-	const inCart = () => ($cart = [...$cart, bookData]);
+	const inCart = () => {
+		// TODO: 이미 리스트에 도서가 추가되어 있으면 책 수량만 바꾸도록 수정해야 함
+
+		$cart = [
+			...$cart,
+			{
+				...bookData,
+				quantity: 1
+			}
+		];
+	};
 </script>
 
 <div>
