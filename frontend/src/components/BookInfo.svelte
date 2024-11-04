@@ -15,7 +15,7 @@
 		<h2 class="mb-2 text-lg font-bold">[{book.genre}] {book.name}</h2>
 		<p class="my-1 text-gray-600">{book.author}</p>
 		<p class="my-1 text-gray-600">{book.publishedDate}</p>
-		<p class="my-1 text-gray-600">{book.price.toString()}원</p>
+		<p class="my-1 text-gray-600">{Intl.NumberFormat('ko-KR').format(book.price)}원</p>
 	</div>
 
 	<div class="mt-4">
