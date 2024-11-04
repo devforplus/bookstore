@@ -1,6 +1,7 @@
 import { sessionWritable } from "@macfja/svelte-persistent-store";
 
 import type { Book } from "$lib/types/Book";
+import { derived } from "svelte/store";
 
 /**
  * ### 장바구니 상태
@@ -15,3 +16,10 @@ import type { Book } from "$lib/types/Book";
  * cart.update(prevCartList => [...prevCartList, "new book data"]);
  */
 export const cart = sessionWritable<Book[]>("cart", []);
+
+/**
+ * 장바구니에 담긴 책들의 총액
+ */
+export const totalPrice = derived(cart, $cart => {
+  return $cart.reduce((totalPrice, book) => totalPrice + book.price,0)
+})

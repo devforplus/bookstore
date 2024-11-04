@@ -57,8 +57,7 @@ export const bookList: Readable<Book[] | undefined> = (() => {
 				.filter((book) => !isEmpty(book.isbn));
 		})
 		.then((books) => {
-			$bookList.set(
-				books.map((book) => {
+				return books.map((book) => {
 					const { title, isbn, publishedDate, genre, price, author } = book;
 
 					return {
@@ -72,9 +71,21 @@ export const bookList: Readable<Book[] | undefined> = (() => {
 						//       책 데이터가 생기면 로직 변경하기
 						coverUrl: "/book_image_unavailable.jpeg",
 					};
-				}),
-			);
+				})
 		})
+		// 최신순 정렬
+		.then(books => {
+			return books
+			// 시간 기준 오름차순 정렬
+			?.toSorted(
+				(bookA, bookB) =>
+					new Date(bookA.publishedDate).getTime() - new Date(bookB.publishedDate).getTime()
+			)
+			// 내림차순으로 변경
+			.toReversed();
+		})
+		// 정렬된 책 데이터를 상태에 저장
+		.then(sortedBooks => $bookList.set(sortedBooks))
 		.then(() => {
 			console.timeEnd("책 리스트 로드");
 		});

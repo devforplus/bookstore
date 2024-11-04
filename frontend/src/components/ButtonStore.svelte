@@ -13,13 +13,10 @@
 
 	const popupModal = writable(false);
 
-	function gotoCart() {
-		goto('/ops/cart');
-	}
-
-	function InCart() {
-		$cart = [...$cart, bookData];
-	}
+	/** 장바구니 페이지로 이동하는 함수 */
+	const gotoCart = () => goto('/store/cart');
+	/** 장바구니에 도서 데이터를 삽입하는 함수 */
+	const inCart = () => ($cart = [...$cart, bookData]);
 </script>
 
 <div>
@@ -28,7 +25,7 @@
 		type="button"
 		on:click={() => {
 			$popupModal = true;
-			InCart();
+			inCart();
 		}}>장바구니</button
 	>
 </div>
