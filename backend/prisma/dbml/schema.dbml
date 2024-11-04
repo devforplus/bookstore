@@ -1,0 +1,90 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table users {
+  id String [pk]
+  name String [not null]
+  password String [not null]
+  sex String [not null]
+  email String [not null]
+  phone String [not null]
+  address String [not null]
+  orders orders [not null]
+  carts carts [not null]
+  addresses addresses [not null]
+}
+
+Table addresses {
+  id Int [pk, increment]
+  zip_code String [not null]
+  address String [not null]
+  detailedAddress String [not null]
+  owner_id String [not null]
+  users users [not null]
+}
+
+Table books {
+  id String [pk]
+  name String [not null]
+  cost Int [not null]
+  price Int [not null]
+  description String [not null]
+  quantity Int [not null]
+  author String [not null]
+  genre_id Int [not null]
+  genres genres [not null]
+  orderDetails orderDetails [not null]
+  carts carts [not null]
+}
+
+Table orders {
+  id String [pk]
+  order_date DateTime [default: `now()`, not null]
+  total_price Int [not null]
+  orderer String [not null]
+  users users [not null]
+  orderDetails orderDetails [not null]
+}
+
+Table orderDetails {
+  order_id String [not null]
+  book_id String [not null]
+  orders orders [not null]
+  books books [not null]
+
+  indexes {
+    (order_id, book_id) [pk]
+  }
+}
+
+Table genres {
+  id Int [pk, increment]
+  genre String [not null]
+  books books [not null]
+}
+
+Table carts {
+  cart_owner_id String [not null]
+  book_id String [not null]
+  users users [not null]
+  books books [not null]
+
+  indexes {
+    (cart_owner_id, book_id) [pk]
+  }
+}
+
+Ref: addresses.owner_id > users.id
+
+Ref: books.genre_id > genres.id
+
+Ref: orders.orderer > users.id
+
+Ref: orderDetails.order_id > orders.id
+
+Ref: orderDetails.book_id > books.id
+
+Ref: carts.cart_owner_id > users.id
+
+Ref: carts.book_id > books.id

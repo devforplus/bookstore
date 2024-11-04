@@ -1,0 +1,21 @@
+{
+  "name": "backend",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.8.7",
+    "prisma-dbml-generator": "^0.12.0",
+    "tsx": "^4.19.2"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.14.0",
+    "@prisma/client": "5.21.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "prisma": "^5.21.1"
+  }
+}

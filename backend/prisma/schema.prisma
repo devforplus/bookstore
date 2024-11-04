@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id       String @id() @default(uuid())
+  name     String
+  // NOTE: 비밀번호는 평문으로 저장하면 안 됨
+  password String
+  sex      String // "female" | "male"
+  email    String
+  phone    String
+  address  String
+
+  orders    orders[]
+  carts     carts[]
+  addresses addresses[]
+}
+
+model addresses {
+  id              Int    @id @default(autoincrement())
+  zip_code        String
+  address         String
+  detailedAddress String
+  owner_id        String
+
+  users users @relation(fields: [owner_id], references: [id])
+}
+
+model books {
+  id          String @id @default(uuid()) // ISBN
+  name        String // 책 이름
+  cost        Int // 원가 
+  price       Int // 정가
+  description String // 책 설명
+  quantity    Int // 재고량
+  author      String // 저자
+  genre_id    Int // 장르 ID
+
+  genres       genres         @relation(fields: [genre_id], references: [id])
+  orderDetails orderDetails[]
+  carts        carts[]
+}
+
+model orders {
+  id          String   @id @default(uuid())
+  order_date  DateTime @default(now())
+  total_price Int // 주문 총액
+  orderer     String // 주문자
+
+  users        users          @relation(fields: [orderer], references: [id])
+  orderDetails orderDetails[]
+}
+
+model orderDetails {
+  order_id String
+  book_id  String
+
+  orders orders @relation(fields: [order_id], references: [id])
+  books  books  @relation(fields: [book_id], references: [id])
+
+  @@id([order_id, book_id])
+}
+
+model genres {
+  id    Int     @id @default(autoincrement())
+  genre String
+  books books[]
+}
+
+model carts {
+  cart_owner_id String
+  book_id       String
+
+  users users @relation(fields: [cart_owner_id], references: [id])
+  books books @relation(fields: [book_id], references: [id])
+
+  @@id([cart_owner_id, book_id])
+}
