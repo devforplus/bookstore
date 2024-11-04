@@ -3,6 +3,7 @@ import { sessionWritable } from "@macfja/svelte-persistent-store";
 import type { Book } from "$lib/types/Book";
 import { derived } from "svelte/store";
 
+// TODO: 장바구니에 '갯수' 데이터 추가하기
 /**
  * ### 장바구니 상태
  *
