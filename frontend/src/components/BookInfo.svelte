@@ -1,5 +1,4 @@
 <script lang="ts">
-	import BookCover from './BookCover.svelte';
 	import ButtonStore from './ButtonStore.svelte';
 
 	import type { Book } from '$lib/types/Book';
@@ -9,7 +8,7 @@
 
 <div class="flex items-start gap-4 rounded-lg border border-gray-300 bg-white p-5 shadow-md">
 	<div class="mr-4 h-auto w-24">
-		<BookCover imgsrc={book.coverUrl}></BookCover>
+		<img src={book.coverUrl} alt={book.name} />
 	</div>
 
 	<div class="flex-grow">
