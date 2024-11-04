@@ -14,7 +14,7 @@
 	/>
 </svelte:head>
 
-<div class="flex w-screen flex-row justify-center">
+<div class="flex w-screen flex-row justify-center py-2">
 	<div class="container">
 		<slot></slot>
 	</div>
