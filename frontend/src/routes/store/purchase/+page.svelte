@@ -2,7 +2,7 @@
 	import { Button, Card } from 'flowbite-svelte';
 	import BookInfo from '../../../components/BookInfo.svelte';
 
-	import { cart, totalPrice } from '../../../stores/cart';
+	import { cart, totalPrice, totalAmount } from '../../../stores/cart';
 </script>
 
 <div class="flex flex-col gap-2">
@@ -18,9 +18,13 @@
 		<div>
 			<Card class="flex flex-col gap-2">
 				<ul>
-					<li>총 도서 수: {$cart.length}</li>
+					<li>총 도서 수: {$totalAmount}</li>
 					{#each $cart as book}
-						<li>{book.name} : {Intl.NumberFormat('ko-KR').format(book.price)}원</li>
+						<li>
+							{book.name} : {Intl.NumberFormat('ko-KR').format(
+								book.price * Number.parseInt(book.quantity ?? 1)
+							)}원
+						</li>
 					{/each}
 				</ul>
 
