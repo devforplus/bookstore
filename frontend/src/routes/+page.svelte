@@ -9,15 +9,17 @@
 
 <MainHeader></MainHeader>
 
-<span class="text-2xl font-bold text-blue-900">최신 도서</span>
 <div class="flex flex-col gap-1">
-	{#if isArray($bookList)}
-		{#each $bookList.slice(0, 5) as book}
-			<BookInfo {book}></BookInfo>
-		{/each}
-	{:else}
-		{#each range(0, 10) as _}
-			<Skeleton size="xxl" class="mb-2.5 mt-8" />
-		{/each}
-	{/if}
+	<span class="text-2xl font-bold text-blue-900">최신 도서</span>
+	<div class="flex flex-col gap-1">
+		{#if isArray($bookList)}
+			{#each $bookList.slice(0, 5) as book}
+				<BookInfo {book}></BookInfo>
+			{/each}
+		{:else}
+			{#each range(0, 10) as _}
+				<Skeleton size="xxl" class="mb-2.5 mt-8" />
+			{/each}
+		{/if}
+	</div>
 </div>
