@@ -11,7 +11,7 @@ export const userList: Readable<User[] | undefined> = (() => {
 
 	console.time("유저 리스트 로드");
 	// 1. 데이터 로드(fetch)
-	fetch("/user.csv")
+	fetch("/userlist.csv")
 		.then((res) => res.text())
 		// 2. csv 데이터 해석
 		.then((text) => new Parser().parse(text))
