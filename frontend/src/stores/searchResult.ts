@@ -18,5 +18,5 @@ export const searchResult = derived([bookList, keyword], ([$bookList, $keyword])
   
   return new Fuse($bookList, {
     keys: ["name", "author"]
-  }).search($keyword)
+  }).search($keyword).map(result => result.item)
 })
