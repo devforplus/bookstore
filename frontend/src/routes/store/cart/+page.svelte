@@ -30,7 +30,9 @@
 					<li>상품 금액: {Intl.NumberFormat('ko-KR').format($totalPrice)}원</li>
 				</ul>
 
-				<Button>주문하기</Button>
+				<a href="/store/purchase">
+					<Button>주문하기</Button>
+				</a>
 			</Card>
 		</div>
 	</div>
