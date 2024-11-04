@@ -1,3 +1,5 @@
+<!-- TODO: 추후 추가 (현재 레거시한 상태) -->
+
 <script lang="ts">
 	import { Tabs, TabItem } from 'flowbite-svelte';
 	import { user } from '../../../stores/user';
