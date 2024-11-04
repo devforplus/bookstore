@@ -44,7 +44,7 @@
 		{:else}
 			<!-- 장바구니 숨김 -->
 			<Label for="quantity">수량</Label>
-			<Input bind:value={book.quantity} type="number" name="quantity" />
+			<Input bind:value={book.quantity} type="number" name="quantity" min={0} />
 		{/if}
 	</div>
 </div>
