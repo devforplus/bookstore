@@ -7,13 +7,17 @@
   "author": "",
   "devDependencies": {
     "@types/express": "^5.0.0",
+    "@types/lodash": "^4.17.13",
     "@types/node": "^22.8.7",
     "prisma-dbml-generator": "^0.12.0",
     "tsx": "^4.19.2"
   },
   "dependencies": {
     "@prisma/client": "5.21.1",
+    "@toss/assert": "^1.2.2",
     "express": "^4.21.1",
-    "prisma": "^5.21.1"
+    "lodash": "^4.17.21",
+    "prisma": "^5.21.1",
+    "remeda": "^2.16.0"
   }
 }
