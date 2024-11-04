@@ -2,6 +2,7 @@ import { loadBookList } from "$lib/loadBookList";
 import { writable, type Readable } from "svelte/store";
 
 import { Parser } from "@gregoranders/csv";
+import { isEmpty } from "remeda";
 
 import type { Book } from "$lib/types/Book";
 import type { RawBook } from "$lib/types/RawBook";
@@ -19,6 +20,7 @@ export const bookList: Readable<Book[] | undefined> = (() => {
 	const $bookList = writable<Book[] | undefined>(undefined);
 
 	// === 책 데이터 로드 (csv, 임시) ===
+	console.time("책 리스트 로드");
 	// 1. 데이터 로드(fetch)
 	fetch("/booklist.csv")
 		.then((res) => res.text())
@@ -26,32 +28,35 @@ export const bookList: Readable<Book[] | undefined> = (() => {
 		.then((text) => new Parser().parse(text))
 		// 3. 데이터 변환 (추상화)
 		.then((parsed) => {
-			return parsed.slice(1).map((row) => {
-				const [
-					_,
-					title,
-					genre,
-					author,
-					translator,
-					publisher,
-					publishedDate,
-					isbn,
-					pageCount,
-					price,
-				] = row;
+			return parsed
+				.slice(1)
+				.map((row) => {
+					const [
+						_,
+						title,
+						genre,
+						author,
+						translator,
+						publisher,
+						publishedDate,
+						isbn,
+						pageCount,
+						price,
+					] = row;
 
-				return {
-					title,
-					genre,
-					author,
-					translator,
-					publisher,
-					publishedDate,
-					isbn,
-					pageCount: Number.parseInt(pageCount),
-					price: Number.parseInt(price),
-				} as RawBook;
-			});
+					return {
+						title,
+						genre,
+						author,
+						translator,
+						publisher,
+						publishedDate,
+						isbn,
+						pageCount: Number.parseInt(pageCount),
+						price: Number.parseInt(price),
+					} as RawBook;
+				})
+				.filter((book) => !isEmpty(book.isbn));
 		})
 		.then((books) => {
 			$bookList.set(
@@ -71,6 +76,9 @@ export const bookList: Readable<Book[] | undefined> = (() => {
 					};
 				}),
 			);
+		})
+		.then(() => {
+			console.timeEnd("책 리스트 로드");
 		});
 
 	return {
