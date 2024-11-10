@@ -11,8 +11,5 @@ export const findUser = async (userId: string) => {
 		where: {
 			id: userId,
 		},
-		include: {
-			hashes: true,
-		},
 	});
 };
