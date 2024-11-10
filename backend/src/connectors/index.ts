@@ -1,2 +1,2 @@
-export { prisma } from "./prismaClient";
-export { trpc } from "./trpcClient";
+export { client } from "./prisma/prismaClient";
+export { appRouter, type AppRouter } from "./trpc";
