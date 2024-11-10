@@ -1,4 +1,4 @@
-import { client } from "src/db";
+import { client } from "src/connectors";
 
 /**
  * 사용자가 장바구니에 넣은 모든 요소를 제거하는 함수
@@ -9,9 +9,9 @@ import { client } from "src/db";
  * @param userId 사용자 ID
  */
 export const reomveAllInCarts = async (userId: string) => {
-	return await client.carts.deleteMany({
-		where: {
-			cart_owner_id: userId,
-		},
-	});
+  return await client.carts.deleteMany({
+    where: {
+      cart_owner_id: userId,
+    },
+  });
 };
