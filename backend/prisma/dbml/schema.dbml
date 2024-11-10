@@ -13,6 +13,13 @@ Table users {
   addresses addresses [not null]
   orders orders [not null]
   carts carts [not null]
+  hashes hashes [not null]
+}
+
+Table hashes {
+  id String [pk]
+  key String [not null]
+  users users [not null]
 }
 
 Table addresses {
@@ -60,7 +67,7 @@ Table orderDetails {
 
 Table genres {
   id Int [pk, increment]
-  genre String [not null]
+  genre String [unique, not null]
   books books [not null]
 }
 
@@ -77,6 +84,8 @@ Table carts {
 }
 
 Ref: users.address > addresses.id
+
+Ref: hashes.id > users.id
 
 Ref: books.genre_id > genres.id
 
