@@ -15,7 +15,7 @@ generator dbml {
 
 generator zod {
   provider = "zod-prisma-types"
-  output   = "./zod"
+  output   = "../src/zod"
 }
 
 datasource db {
