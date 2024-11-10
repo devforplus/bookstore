@@ -14,8 +14,6 @@ export const TransactionIsolationLevelSchema = z.enum(['Serializable']);
 
 export const UsersScalarFieldEnumSchema = z.enum(['id','name','password','sex','email','phone','address']);
 
-export const HashesScalarFieldEnumSchema = z.enum(['id','key']);
-
 export const AddressesScalarFieldEnumSchema = z.enum(['id','zip_code','address','detailedAddress']);
 
 export const BooksScalarFieldEnumSchema = z.enum(['id','name','cost','price','description','quantity','author','genre_id']);
@@ -50,17 +48,6 @@ export const usersSchema = z.object({
 })
 
 export type users = z.infer<typeof usersSchema>
-
-/////////////////////////////////////////
-// HASHES SCHEMA
-/////////////////////////////////////////
-
-export const hashesSchema = z.object({
-  id: z.string(),
-  key: z.string(),
-})
-
-export type hashes = z.infer<typeof hashesSchema>
 
 /////////////////////////////////////////
 // ADDRESSES SCHEMA
@@ -151,7 +138,6 @@ export const usersIncludeSchema: z.ZodType<Prisma.usersInclude> = z.object({
   addresses: z.union([z.boolean(),z.lazy(() => addressesArgsSchema)]).optional(),
   orders: z.union([z.boolean(),z.lazy(() => ordersFindManyArgsSchema)]).optional(),
   carts: z.union([z.boolean(),z.lazy(() => cartsFindManyArgsSchema)]).optional(),
-  hashes: z.union([z.boolean(),z.lazy(() => hashesFindManyArgsSchema)]).optional(),
   _count: z.union([z.boolean(),z.lazy(() => UsersCountOutputTypeArgsSchema)]).optional(),
 }).strict()
 
@@ -167,7 +153,6 @@ export const usersCountOutputTypeArgsSchema: z.ZodType<Prisma.usersCountOutputTy
 export const usersCountOutputTypeSelectSchema: z.ZodType<Prisma.usersCountOutputTypeSelect> = z.object({
   orders: z.boolean().optional(),
   carts: z.boolean().optional(),
-  hashes: z.boolean().optional(),
 }).strict();
 
 export const usersSelectSchema: z.ZodType<Prisma.usersSelect> = z.object({
@@ -181,26 +166,7 @@ export const usersSelectSchema: z.ZodType<Prisma.usersSelect> = z.object({
   addresses: z.union([z.boolean(),z.lazy(() => addressesArgsSchema)]).optional(),
   orders: z.union([z.boolean(),z.lazy(() => ordersFindManyArgsSchema)]).optional(),
   carts: z.union([z.boolean(),z.lazy(() => cartsFindManyArgsSchema)]).optional(),
-  hashes: z.union([z.boolean(),z.lazy(() => hashesFindManyArgsSchema)]).optional(),
   _count: z.union([z.boolean(),z.lazy(() => UsersCountOutputTypeArgsSchema)]).optional(),
-}).strict()
-
-// HASHES
-//------------------------------------------------------
-
-export const hashesIncludeSchema: z.ZodType<Prisma.hashesInclude> = z.object({
-  users: z.union([z.boolean(),z.lazy(() => usersArgsSchema)]).optional(),
-}).strict()
-
-export const hashesArgsSchema: z.ZodType<Prisma.hashesDefaultArgs> = z.object({
-  select: z.lazy(() => hashesSelectSchema).optional(),
-  include: z.lazy(() => hashesIncludeSchema).optional(),
-}).strict();
-
-export const hashesSelectSchema: z.ZodType<Prisma.hashesSelect> = z.object({
-  id: z.boolean().optional(),
-  key: z.boolean().optional(),
-  users: z.union([z.boolean(),z.lazy(() => usersArgsSchema)]).optional(),
 }).strict()
 
 // ADDRESSES
@@ -392,8 +358,7 @@ export const usersWhereInputSchema: z.ZodType<Prisma.usersWhereInput> = z.object
   address: z.union([ z.lazy(() => IntFilterSchema),z.number() ]).optional(),
   addresses: z.union([ z.lazy(() => AddressesRelationFilterSchema),z.lazy(() => addressesWhereInputSchema) ]).optional(),
   orders: z.lazy(() => OrdersListRelationFilterSchema).optional(),
-  carts: z.lazy(() => CartsListRelationFilterSchema).optional(),
-  hashes: z.lazy(() => HashesListRelationFilterSchema).optional()
+  carts: z.lazy(() => CartsListRelationFilterSchema).optional()
 }).strict();
 
 export const usersOrderByWithRelationInputSchema: z.ZodType<Prisma.usersOrderByWithRelationInput> = z.object({
@@ -406,8 +371,7 @@ export const usersOrderByWithRelationInputSchema: z.ZodType<Prisma.usersOrderByW
   address: z.lazy(() => SortOrderSchema).optional(),
   addresses: z.lazy(() => addressesOrderByWithRelationInputSchema).optional(),
   orders: z.lazy(() => ordersOrderByRelationAggregateInputSchema).optional(),
-  carts: z.lazy(() => cartsOrderByRelationAggregateInputSchema).optional(),
-  hashes: z.lazy(() => hashesOrderByRelationAggregateInputSchema).optional()
+  carts: z.lazy(() => cartsOrderByRelationAggregateInputSchema).optional()
 }).strict();
 
 export const usersWhereUniqueInputSchema: z.ZodType<Prisma.usersWhereUniqueInput> = z.object({
@@ -426,8 +390,7 @@ export const usersWhereUniqueInputSchema: z.ZodType<Prisma.usersWhereUniqueInput
   address: z.union([ z.lazy(() => IntFilterSchema),z.number().int() ]).optional(),
   addresses: z.union([ z.lazy(() => AddressesRelationFilterSchema),z.lazy(() => addressesWhereInputSchema) ]).optional(),
   orders: z.lazy(() => OrdersListRelationFilterSchema).optional(),
-  carts: z.lazy(() => CartsListRelationFilterSchema).optional(),
-  hashes: z.lazy(() => HashesListRelationFilterSchema).optional()
+  carts: z.lazy(() => CartsListRelationFilterSchema).optional()
 }).strict());
 
 export const usersOrderByWithAggregationInputSchema: z.ZodType<Prisma.usersOrderByWithAggregationInput> = z.object({
@@ -456,49 +419,6 @@ export const usersScalarWhereWithAggregatesInputSchema: z.ZodType<Prisma.usersSc
   email: z.union([ z.lazy(() => StringWithAggregatesFilterSchema),z.string() ]).optional(),
   phone: z.union([ z.lazy(() => StringWithAggregatesFilterSchema),z.string() ]).optional(),
   address: z.union([ z.lazy(() => IntWithAggregatesFilterSchema),z.number() ]).optional(),
-}).strict();
-
-export const hashesWhereInputSchema: z.ZodType<Prisma.hashesWhereInput> = z.object({
-  AND: z.union([ z.lazy(() => hashesWhereInputSchema),z.lazy(() => hashesWhereInputSchema).array() ]).optional(),
-  OR: z.lazy(() => hashesWhereInputSchema).array().optional(),
-  NOT: z.union([ z.lazy(() => hashesWhereInputSchema),z.lazy(() => hashesWhereInputSchema).array() ]).optional(),
-  id: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
-  key: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
-  users: z.union([ z.lazy(() => UsersRelationFilterSchema),z.lazy(() => usersWhereInputSchema) ]).optional(),
-}).strict();
-
-export const hashesOrderByWithRelationInputSchema: z.ZodType<Prisma.hashesOrderByWithRelationInput> = z.object({
-  id: z.lazy(() => SortOrderSchema).optional(),
-  key: z.lazy(() => SortOrderSchema).optional(),
-  users: z.lazy(() => usersOrderByWithRelationInputSchema).optional()
-}).strict();
-
-export const hashesWhereUniqueInputSchema: z.ZodType<Prisma.hashesWhereUniqueInput> = z.object({
-  id: z.string()
-})
-.and(z.object({
-  id: z.string().optional(),
-  AND: z.union([ z.lazy(() => hashesWhereInputSchema),z.lazy(() => hashesWhereInputSchema).array() ]).optional(),
-  OR: z.lazy(() => hashesWhereInputSchema).array().optional(),
-  NOT: z.union([ z.lazy(() => hashesWhereInputSchema),z.lazy(() => hashesWhereInputSchema).array() ]).optional(),
-  key: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
-  users: z.union([ z.lazy(() => UsersRelationFilterSchema),z.lazy(() => usersWhereInputSchema) ]).optional(),
-}).strict());
-
-export const hashesOrderByWithAggregationInputSchema: z.ZodType<Prisma.hashesOrderByWithAggregationInput> = z.object({
-  id: z.lazy(() => SortOrderSchema).optional(),
-  key: z.lazy(() => SortOrderSchema).optional(),
-  _count: z.lazy(() => hashesCountOrderByAggregateInputSchema).optional(),
-  _max: z.lazy(() => hashesMaxOrderByAggregateInputSchema).optional(),
-  _min: z.lazy(() => hashesMinOrderByAggregateInputSchema).optional()
-}).strict();
-
-export const hashesScalarWhereWithAggregatesInputSchema: z.ZodType<Prisma.hashesScalarWhereWithAggregatesInput> = z.object({
-  AND: z.union([ z.lazy(() => hashesScalarWhereWithAggregatesInputSchema),z.lazy(() => hashesScalarWhereWithAggregatesInputSchema).array() ]).optional(),
-  OR: z.lazy(() => hashesScalarWhereWithAggregatesInputSchema).array().optional(),
-  NOT: z.union([ z.lazy(() => hashesScalarWhereWithAggregatesInputSchema),z.lazy(() => hashesScalarWhereWithAggregatesInputSchema).array() ]).optional(),
-  id: z.union([ z.lazy(() => StringWithAggregatesFilterSchema),z.string() ]).optional(),
-  key: z.union([ z.lazy(() => StringWithAggregatesFilterSchema),z.string() ]).optional(),
 }).strict();
 
 export const addressesWhereInputSchema: z.ZodType<Prisma.addressesWhereInput> = z.object({
@@ -864,8 +784,7 @@ export const usersCreateInputSchema: z.ZodType<Prisma.usersCreateInput> = z.obje
   phone: z.string(),
   addresses: z.lazy(() => addressesCreateNestedOneWithoutUsersInputSchema),
   orders: z.lazy(() => ordersCreateNestedManyWithoutUsersInputSchema).optional(),
-  carts: z.lazy(() => cartsCreateNestedManyWithoutUsersInputSchema).optional(),
-  hashes: z.lazy(() => hashesCreateNestedManyWithoutUsersInputSchema).optional()
+  carts: z.lazy(() => cartsCreateNestedManyWithoutUsersInputSchema).optional()
 }).strict();
 
 export const usersUncheckedCreateInputSchema: z.ZodType<Prisma.usersUncheckedCreateInput> = z.object({
@@ -877,8 +796,7 @@ export const usersUncheckedCreateInputSchema: z.ZodType<Prisma.usersUncheckedCre
   phone: z.string(),
   address: z.number().int(),
   orders: z.lazy(() => ordersUncheckedCreateNestedManyWithoutUsersInputSchema).optional(),
-  carts: z.lazy(() => cartsUncheckedCreateNestedManyWithoutUsersInputSchema).optional(),
-  hashes: z.lazy(() => hashesUncheckedCreateNestedManyWithoutUsersInputSchema).optional()
+  carts: z.lazy(() => cartsUncheckedCreateNestedManyWithoutUsersInputSchema).optional()
 }).strict();
 
 export const usersUpdateInputSchema: z.ZodType<Prisma.usersUpdateInput> = z.object({
@@ -890,8 +808,7 @@ export const usersUpdateInputSchema: z.ZodType<Prisma.usersUpdateInput> = z.obje
   phone: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   addresses: z.lazy(() => addressesUpdateOneRequiredWithoutUsersNestedInputSchema).optional(),
   orders: z.lazy(() => ordersUpdateManyWithoutUsersNestedInputSchema).optional(),
-  carts: z.lazy(() => cartsUpdateManyWithoutUsersNestedInputSchema).optional(),
-  hashes: z.lazy(() => hashesUpdateManyWithoutUsersNestedInputSchema).optional()
+  carts: z.lazy(() => cartsUpdateManyWithoutUsersNestedInputSchema).optional()
 }).strict();
 
 export const usersUncheckedUpdateInputSchema: z.ZodType<Prisma.usersUncheckedUpdateInput> = z.object({
@@ -903,8 +820,7 @@ export const usersUncheckedUpdateInputSchema: z.ZodType<Prisma.usersUncheckedUpd
   phone: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   address: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   orders: z.lazy(() => ordersUncheckedUpdateManyWithoutUsersNestedInputSchema).optional(),
-  carts: z.lazy(() => cartsUncheckedUpdateManyWithoutUsersNestedInputSchema).optional(),
-  hashes: z.lazy(() => hashesUncheckedUpdateManyWithoutUsersNestedInputSchema).optional()
+  carts: z.lazy(() => cartsUncheckedUpdateManyWithoutUsersNestedInputSchema).optional()
 }).strict();
 
 export const usersCreateManyInputSchema: z.ZodType<Prisma.usersCreateManyInput> = z.object({
@@ -934,40 +850,6 @@ export const usersUncheckedUpdateManyInputSchema: z.ZodType<Prisma.usersUnchecke
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   phone: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   address: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
-}).strict();
-
-export const hashesCreateInputSchema: z.ZodType<Prisma.hashesCreateInput> = z.object({
-  key: z.string(),
-  users: z.lazy(() => usersCreateNestedOneWithoutHashesInputSchema)
-}).strict();
-
-export const hashesUncheckedCreateInputSchema: z.ZodType<Prisma.hashesUncheckedCreateInput> = z.object({
-  id: z.string(),
-  key: z.string()
-}).strict();
-
-export const hashesUpdateInputSchema: z.ZodType<Prisma.hashesUpdateInput> = z.object({
-  key: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  users: z.lazy(() => usersUpdateOneRequiredWithoutHashesNestedInputSchema).optional()
-}).strict();
-
-export const hashesUncheckedUpdateInputSchema: z.ZodType<Prisma.hashesUncheckedUpdateInput> = z.object({
-  id: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  key: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-}).strict();
-
-export const hashesCreateManyInputSchema: z.ZodType<Prisma.hashesCreateManyInput> = z.object({
-  id: z.string(),
-  key: z.string()
-}).strict();
-
-export const hashesUpdateManyMutationInputSchema: z.ZodType<Prisma.hashesUpdateManyMutationInput> = z.object({
-  key: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-}).strict();
-
-export const hashesUncheckedUpdateManyInputSchema: z.ZodType<Prisma.hashesUncheckedUpdateManyInput> = z.object({
-  id: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  key: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
 export const addressesCreateInputSchema: z.ZodType<Prisma.addressesCreateInput> = z.object({
@@ -1314,21 +1196,11 @@ export const CartsListRelationFilterSchema: z.ZodType<Prisma.CartsListRelationFi
   none: z.lazy(() => cartsWhereInputSchema).optional()
 }).strict();
 
-export const HashesListRelationFilterSchema: z.ZodType<Prisma.HashesListRelationFilter> = z.object({
-  every: z.lazy(() => hashesWhereInputSchema).optional(),
-  some: z.lazy(() => hashesWhereInputSchema).optional(),
-  none: z.lazy(() => hashesWhereInputSchema).optional()
-}).strict();
-
 export const ordersOrderByRelationAggregateInputSchema: z.ZodType<Prisma.ordersOrderByRelationAggregateInput> = z.object({
   _count: z.lazy(() => SortOrderSchema).optional()
 }).strict();
 
 export const cartsOrderByRelationAggregateInputSchema: z.ZodType<Prisma.cartsOrderByRelationAggregateInput> = z.object({
-  _count: z.lazy(() => SortOrderSchema).optional()
-}).strict();
-
-export const hashesOrderByRelationAggregateInputSchema: z.ZodType<Prisma.hashesOrderByRelationAggregateInput> = z.object({
   _count: z.lazy(() => SortOrderSchema).optional()
 }).strict();
 
@@ -1401,26 +1273,6 @@ export const IntWithAggregatesFilterSchema: z.ZodType<Prisma.IntWithAggregatesFi
   _sum: z.lazy(() => NestedIntFilterSchema).optional(),
   _min: z.lazy(() => NestedIntFilterSchema).optional(),
   _max: z.lazy(() => NestedIntFilterSchema).optional()
-}).strict();
-
-export const UsersRelationFilterSchema: z.ZodType<Prisma.UsersRelationFilter> = z.object({
-  is: z.lazy(() => usersWhereInputSchema).optional(),
-  isNot: z.lazy(() => usersWhereInputSchema).optional()
-}).strict();
-
-export const hashesCountOrderByAggregateInputSchema: z.ZodType<Prisma.hashesCountOrderByAggregateInput> = z.object({
-  id: z.lazy(() => SortOrderSchema).optional(),
-  key: z.lazy(() => SortOrderSchema).optional()
-}).strict();
-
-export const hashesMaxOrderByAggregateInputSchema: z.ZodType<Prisma.hashesMaxOrderByAggregateInput> = z.object({
-  id: z.lazy(() => SortOrderSchema).optional(),
-  key: z.lazy(() => SortOrderSchema).optional()
-}).strict();
-
-export const hashesMinOrderByAggregateInputSchema: z.ZodType<Prisma.hashesMinOrderByAggregateInput> = z.object({
-  id: z.lazy(() => SortOrderSchema).optional(),
-  key: z.lazy(() => SortOrderSchema).optional()
 }).strict();
 
 export const UsersListRelationFilterSchema: z.ZodType<Prisma.UsersListRelationFilter> = z.object({
@@ -1544,6 +1396,11 @@ export const DateTimeNullableFilterSchema: z.ZodType<Prisma.DateTimeNullableFilt
   gt: z.coerce.date().optional(),
   gte: z.coerce.date().optional(),
   not: z.union([ z.coerce.date(),z.lazy(() => NestedDateTimeNullableFilterSchema) ]).optional().nullable(),
+}).strict();
+
+export const UsersRelationFilterSchema: z.ZodType<Prisma.UsersRelationFilter> = z.object({
+  is: z.lazy(() => usersWhereInputSchema).optional(),
+  isNot: z.lazy(() => usersWhereInputSchema).optional()
 }).strict();
 
 export const SortOrderInputSchema: z.ZodType<Prisma.SortOrderInput> = z.object({
@@ -1725,13 +1582,6 @@ export const cartsCreateNestedManyWithoutUsersInputSchema: z.ZodType<Prisma.cart
   connect: z.union([ z.lazy(() => cartsWhereUniqueInputSchema),z.lazy(() => cartsWhereUniqueInputSchema).array() ]).optional(),
 }).strict();
 
-export const hashesCreateNestedManyWithoutUsersInputSchema: z.ZodType<Prisma.hashesCreateNestedManyWithoutUsersInput> = z.object({
-  create: z.union([ z.lazy(() => hashesCreateWithoutUsersInputSchema),z.lazy(() => hashesCreateWithoutUsersInputSchema).array(),z.lazy(() => hashesUncheckedCreateWithoutUsersInputSchema),z.lazy(() => hashesUncheckedCreateWithoutUsersInputSchema).array() ]).optional(),
-  connectOrCreate: z.union([ z.lazy(() => hashesCreateOrConnectWithoutUsersInputSchema),z.lazy(() => hashesCreateOrConnectWithoutUsersInputSchema).array() ]).optional(),
-  createMany: z.lazy(() => hashesCreateManyUsersInputEnvelopeSchema).optional(),
-  connect: z.union([ z.lazy(() => hashesWhereUniqueInputSchema),z.lazy(() => hashesWhereUniqueInputSchema).array() ]).optional(),
-}).strict();
-
 export const ordersUncheckedCreateNestedManyWithoutUsersInputSchema: z.ZodType<Prisma.ordersUncheckedCreateNestedManyWithoutUsersInput> = z.object({
   create: z.union([ z.lazy(() => ordersCreateWithoutUsersInputSchema),z.lazy(() => ordersCreateWithoutUsersInputSchema).array(),z.lazy(() => ordersUncheckedCreateWithoutUsersInputSchema),z.lazy(() => ordersUncheckedCreateWithoutUsersInputSchema).array() ]).optional(),
   connectOrCreate: z.union([ z.lazy(() => ordersCreateOrConnectWithoutUsersInputSchema),z.lazy(() => ordersCreateOrConnectWithoutUsersInputSchema).array() ]).optional(),
@@ -1744,13 +1594,6 @@ export const cartsUncheckedCreateNestedManyWithoutUsersInputSchema: z.ZodType<Pr
   connectOrCreate: z.union([ z.lazy(() => cartsCreateOrConnectWithoutUsersInputSchema),z.lazy(() => cartsCreateOrConnectWithoutUsersInputSchema).array() ]).optional(),
   createMany: z.lazy(() => cartsCreateManyUsersInputEnvelopeSchema).optional(),
   connect: z.union([ z.lazy(() => cartsWhereUniqueInputSchema),z.lazy(() => cartsWhereUniqueInputSchema).array() ]).optional(),
-}).strict();
-
-export const hashesUncheckedCreateNestedManyWithoutUsersInputSchema: z.ZodType<Prisma.hashesUncheckedCreateNestedManyWithoutUsersInput> = z.object({
-  create: z.union([ z.lazy(() => hashesCreateWithoutUsersInputSchema),z.lazy(() => hashesCreateWithoutUsersInputSchema).array(),z.lazy(() => hashesUncheckedCreateWithoutUsersInputSchema),z.lazy(() => hashesUncheckedCreateWithoutUsersInputSchema).array() ]).optional(),
-  connectOrCreate: z.union([ z.lazy(() => hashesCreateOrConnectWithoutUsersInputSchema),z.lazy(() => hashesCreateOrConnectWithoutUsersInputSchema).array() ]).optional(),
-  createMany: z.lazy(() => hashesCreateManyUsersInputEnvelopeSchema).optional(),
-  connect: z.union([ z.lazy(() => hashesWhereUniqueInputSchema),z.lazy(() => hashesWhereUniqueInputSchema).array() ]).optional(),
 }).strict();
 
 export const StringFieldUpdateOperationsInputSchema: z.ZodType<Prisma.StringFieldUpdateOperationsInput> = z.object({
@@ -1793,20 +1636,6 @@ export const cartsUpdateManyWithoutUsersNestedInputSchema: z.ZodType<Prisma.cart
   deleteMany: z.union([ z.lazy(() => cartsScalarWhereInputSchema),z.lazy(() => cartsScalarWhereInputSchema).array() ]).optional(),
 }).strict();
 
-export const hashesUpdateManyWithoutUsersNestedInputSchema: z.ZodType<Prisma.hashesUpdateManyWithoutUsersNestedInput> = z.object({
-  create: z.union([ z.lazy(() => hashesCreateWithoutUsersInputSchema),z.lazy(() => hashesCreateWithoutUsersInputSchema).array(),z.lazy(() => hashesUncheckedCreateWithoutUsersInputSchema),z.lazy(() => hashesUncheckedCreateWithoutUsersInputSchema).array() ]).optional(),
-  connectOrCreate: z.union([ z.lazy(() => hashesCreateOrConnectWithoutUsersInputSchema),z.lazy(() => hashesCreateOrConnectWithoutUsersInputSchema).array() ]).optional(),
-  upsert: z.union([ z.lazy(() => hashesUpsertWithWhereUniqueWithoutUsersInputSchema),z.lazy(() => hashesUpsertWithWhereUniqueWithoutUsersInputSchema).array() ]).optional(),
-  createMany: z.lazy(() => hashesCreateManyUsersInputEnvelopeSchema).optional(),
-  set: z.union([ z.lazy(() => hashesWhereUniqueInputSchema),z.lazy(() => hashesWhereUniqueInputSchema).array() ]).optional(),
-  disconnect: z.union([ z.lazy(() => hashesWhereUniqueInputSchema),z.lazy(() => hashesWhereUniqueInputSchema).array() ]).optional(),
-  delete: z.union([ z.lazy(() => hashesWhereUniqueInputSchema),z.lazy(() => hashesWhereUniqueInputSchema).array() ]).optional(),
-  connect: z.union([ z.lazy(() => hashesWhereUniqueInputSchema),z.lazy(() => hashesWhereUniqueInputSchema).array() ]).optional(),
-  update: z.union([ z.lazy(() => hashesUpdateWithWhereUniqueWithoutUsersInputSchema),z.lazy(() => hashesUpdateWithWhereUniqueWithoutUsersInputSchema).array() ]).optional(),
-  updateMany: z.union([ z.lazy(() => hashesUpdateManyWithWhereWithoutUsersInputSchema),z.lazy(() => hashesUpdateManyWithWhereWithoutUsersInputSchema).array() ]).optional(),
-  deleteMany: z.union([ z.lazy(() => hashesScalarWhereInputSchema),z.lazy(() => hashesScalarWhereInputSchema).array() ]).optional(),
-}).strict();
-
 export const IntFieldUpdateOperationsInputSchema: z.ZodType<Prisma.IntFieldUpdateOperationsInput> = z.object({
   set: z.number().optional(),
   increment: z.number().optional(),
@@ -1841,34 +1670,6 @@ export const cartsUncheckedUpdateManyWithoutUsersNestedInputSchema: z.ZodType<Pr
   update: z.union([ z.lazy(() => cartsUpdateWithWhereUniqueWithoutUsersInputSchema),z.lazy(() => cartsUpdateWithWhereUniqueWithoutUsersInputSchema).array() ]).optional(),
   updateMany: z.union([ z.lazy(() => cartsUpdateManyWithWhereWithoutUsersInputSchema),z.lazy(() => cartsUpdateManyWithWhereWithoutUsersInputSchema).array() ]).optional(),
   deleteMany: z.union([ z.lazy(() => cartsScalarWhereInputSchema),z.lazy(() => cartsScalarWhereInputSchema).array() ]).optional(),
-}).strict();
-
-export const hashesUncheckedUpdateManyWithoutUsersNestedInputSchema: z.ZodType<Prisma.hashesUncheckedUpdateManyWithoutUsersNestedInput> = z.object({
-  create: z.union([ z.lazy(() => hashesCreateWithoutUsersInputSchema),z.lazy(() => hashesCreateWithoutUsersInputSchema).array(),z.lazy(() => hashesUncheckedCreateWithoutUsersInputSchema),z.lazy(() => hashesUncheckedCreateWithoutUsersInputSchema).array() ]).optional(),
-  connectOrCreate: z.union([ z.lazy(() => hashesCreateOrConnectWithoutUsersInputSchema),z.lazy(() => hashesCreateOrConnectWithoutUsersInputSchema).array() ]).optional(),
-  upsert: z.union([ z.lazy(() => hashesUpsertWithWhereUniqueWithoutUsersInputSchema),z.lazy(() => hashesUpsertWithWhereUniqueWithoutUsersInputSchema).array() ]).optional(),
-  createMany: z.lazy(() => hashesCreateManyUsersInputEnvelopeSchema).optional(),
-  set: z.union([ z.lazy(() => hashesWhereUniqueInputSchema),z.lazy(() => hashesWhereUniqueInputSchema).array() ]).optional(),
-  disconnect: z.union([ z.lazy(() => hashesWhereUniqueInputSchema),z.lazy(() => hashesWhereUniqueInputSchema).array() ]).optional(),
-  delete: z.union([ z.lazy(() => hashesWhereUniqueInputSchema),z.lazy(() => hashesWhereUniqueInputSchema).array() ]).optional(),
-  connect: z.union([ z.lazy(() => hashesWhereUniqueInputSchema),z.lazy(() => hashesWhereUniqueInputSchema).array() ]).optional(),
-  update: z.union([ z.lazy(() => hashesUpdateWithWhereUniqueWithoutUsersInputSchema),z.lazy(() => hashesUpdateWithWhereUniqueWithoutUsersInputSchema).array() ]).optional(),
-  updateMany: z.union([ z.lazy(() => hashesUpdateManyWithWhereWithoutUsersInputSchema),z.lazy(() => hashesUpdateManyWithWhereWithoutUsersInputSchema).array() ]).optional(),
-  deleteMany: z.union([ z.lazy(() => hashesScalarWhereInputSchema),z.lazy(() => hashesScalarWhereInputSchema).array() ]).optional(),
-}).strict();
-
-export const usersCreateNestedOneWithoutHashesInputSchema: z.ZodType<Prisma.usersCreateNestedOneWithoutHashesInput> = z.object({
-  create: z.union([ z.lazy(() => usersCreateWithoutHashesInputSchema),z.lazy(() => usersUncheckedCreateWithoutHashesInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => usersCreateOrConnectWithoutHashesInputSchema).optional(),
-  connect: z.lazy(() => usersWhereUniqueInputSchema).optional()
-}).strict();
-
-export const usersUpdateOneRequiredWithoutHashesNestedInputSchema: z.ZodType<Prisma.usersUpdateOneRequiredWithoutHashesNestedInput> = z.object({
-  create: z.union([ z.lazy(() => usersCreateWithoutHashesInputSchema),z.lazy(() => usersUncheckedCreateWithoutHashesInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => usersCreateOrConnectWithoutHashesInputSchema).optional(),
-  upsert: z.lazy(() => usersUpsertWithoutHashesInputSchema).optional(),
-  connect: z.lazy(() => usersWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => usersUpdateToOneWithWhereWithoutHashesInputSchema),z.lazy(() => usersUpdateWithoutHashesInputSchema),z.lazy(() => usersUncheckedUpdateWithoutHashesInputSchema) ]).optional(),
 }).strict();
 
 export const usersCreateNestedManyWithoutAddressesInputSchema: z.ZodType<Prisma.usersCreateNestedManyWithoutAddressesInput> = z.object({
@@ -2365,23 +2166,6 @@ export const cartsCreateManyUsersInputEnvelopeSchema: z.ZodType<Prisma.cartsCrea
   data: z.union([ z.lazy(() => cartsCreateManyUsersInputSchema),z.lazy(() => cartsCreateManyUsersInputSchema).array() ]),
 }).strict();
 
-export const hashesCreateWithoutUsersInputSchema: z.ZodType<Prisma.hashesCreateWithoutUsersInput> = z.object({
-  key: z.string()
-}).strict();
-
-export const hashesUncheckedCreateWithoutUsersInputSchema: z.ZodType<Prisma.hashesUncheckedCreateWithoutUsersInput> = z.object({
-  key: z.string()
-}).strict();
-
-export const hashesCreateOrConnectWithoutUsersInputSchema: z.ZodType<Prisma.hashesCreateOrConnectWithoutUsersInput> = z.object({
-  where: z.lazy(() => hashesWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => hashesCreateWithoutUsersInputSchema),z.lazy(() => hashesUncheckedCreateWithoutUsersInputSchema) ]),
-}).strict();
-
-export const hashesCreateManyUsersInputEnvelopeSchema: z.ZodType<Prisma.hashesCreateManyUsersInputEnvelope> = z.object({
-  data: z.union([ z.lazy(() => hashesCreateManyUsersInputSchema),z.lazy(() => hashesCreateManyUsersInputSchema).array() ]),
-}).strict();
-
 export const addressesUpsertWithoutUsersInputSchema: z.ZodType<Prisma.addressesUpsertWithoutUsersInput> = z.object({
   update: z.union([ z.lazy(() => addressesUpdateWithoutUsersInputSchema),z.lazy(() => addressesUncheckedUpdateWithoutUsersInputSchema) ]),
   create: z.union([ z.lazy(() => addressesCreateWithoutUsersInputSchema),z.lazy(() => addressesUncheckedCreateWithoutUsersInputSchema) ]),
@@ -2458,94 +2242,6 @@ export const cartsScalarWhereInputSchema: z.ZodType<Prisma.cartsScalarWhereInput
   quantity: z.union([ z.lazy(() => IntFilterSchema),z.number() ]).optional(),
 }).strict();
 
-export const hashesUpsertWithWhereUniqueWithoutUsersInputSchema: z.ZodType<Prisma.hashesUpsertWithWhereUniqueWithoutUsersInput> = z.object({
-  where: z.lazy(() => hashesWhereUniqueInputSchema),
-  update: z.union([ z.lazy(() => hashesUpdateWithoutUsersInputSchema),z.lazy(() => hashesUncheckedUpdateWithoutUsersInputSchema) ]),
-  create: z.union([ z.lazy(() => hashesCreateWithoutUsersInputSchema),z.lazy(() => hashesUncheckedCreateWithoutUsersInputSchema) ]),
-}).strict();
-
-export const hashesUpdateWithWhereUniqueWithoutUsersInputSchema: z.ZodType<Prisma.hashesUpdateWithWhereUniqueWithoutUsersInput> = z.object({
-  where: z.lazy(() => hashesWhereUniqueInputSchema),
-  data: z.union([ z.lazy(() => hashesUpdateWithoutUsersInputSchema),z.lazy(() => hashesUncheckedUpdateWithoutUsersInputSchema) ]),
-}).strict();
-
-export const hashesUpdateManyWithWhereWithoutUsersInputSchema: z.ZodType<Prisma.hashesUpdateManyWithWhereWithoutUsersInput> = z.object({
-  where: z.lazy(() => hashesScalarWhereInputSchema),
-  data: z.union([ z.lazy(() => hashesUpdateManyMutationInputSchema),z.lazy(() => hashesUncheckedUpdateManyWithoutUsersInputSchema) ]),
-}).strict();
-
-export const hashesScalarWhereInputSchema: z.ZodType<Prisma.hashesScalarWhereInput> = z.object({
-  AND: z.union([ z.lazy(() => hashesScalarWhereInputSchema),z.lazy(() => hashesScalarWhereInputSchema).array() ]).optional(),
-  OR: z.lazy(() => hashesScalarWhereInputSchema).array().optional(),
-  NOT: z.union([ z.lazy(() => hashesScalarWhereInputSchema),z.lazy(() => hashesScalarWhereInputSchema).array() ]).optional(),
-  id: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
-  key: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
-}).strict();
-
-export const usersCreateWithoutHashesInputSchema: z.ZodType<Prisma.usersCreateWithoutHashesInput> = z.object({
-  id: z.string().optional(),
-  name: z.string(),
-  password: z.string(),
-  sex: z.string(),
-  email: z.string(),
-  phone: z.string(),
-  addresses: z.lazy(() => addressesCreateNestedOneWithoutUsersInputSchema),
-  orders: z.lazy(() => ordersCreateNestedManyWithoutUsersInputSchema).optional(),
-  carts: z.lazy(() => cartsCreateNestedManyWithoutUsersInputSchema).optional()
-}).strict();
-
-export const usersUncheckedCreateWithoutHashesInputSchema: z.ZodType<Prisma.usersUncheckedCreateWithoutHashesInput> = z.object({
-  id: z.string().optional(),
-  name: z.string(),
-  password: z.string(),
-  sex: z.string(),
-  email: z.string(),
-  phone: z.string(),
-  address: z.number().int(),
-  orders: z.lazy(() => ordersUncheckedCreateNestedManyWithoutUsersInputSchema).optional(),
-  carts: z.lazy(() => cartsUncheckedCreateNestedManyWithoutUsersInputSchema).optional()
-}).strict();
-
-export const usersCreateOrConnectWithoutHashesInputSchema: z.ZodType<Prisma.usersCreateOrConnectWithoutHashesInput> = z.object({
-  where: z.lazy(() => usersWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => usersCreateWithoutHashesInputSchema),z.lazy(() => usersUncheckedCreateWithoutHashesInputSchema) ]),
-}).strict();
-
-export const usersUpsertWithoutHashesInputSchema: z.ZodType<Prisma.usersUpsertWithoutHashesInput> = z.object({
-  update: z.union([ z.lazy(() => usersUpdateWithoutHashesInputSchema),z.lazy(() => usersUncheckedUpdateWithoutHashesInputSchema) ]),
-  create: z.union([ z.lazy(() => usersCreateWithoutHashesInputSchema),z.lazy(() => usersUncheckedCreateWithoutHashesInputSchema) ]),
-  where: z.lazy(() => usersWhereInputSchema).optional()
-}).strict();
-
-export const usersUpdateToOneWithWhereWithoutHashesInputSchema: z.ZodType<Prisma.usersUpdateToOneWithWhereWithoutHashesInput> = z.object({
-  where: z.lazy(() => usersWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => usersUpdateWithoutHashesInputSchema),z.lazy(() => usersUncheckedUpdateWithoutHashesInputSchema) ]),
-}).strict();
-
-export const usersUpdateWithoutHashesInputSchema: z.ZodType<Prisma.usersUpdateWithoutHashesInput> = z.object({
-  id: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  password: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  sex: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  phone: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  addresses: z.lazy(() => addressesUpdateOneRequiredWithoutUsersNestedInputSchema).optional(),
-  orders: z.lazy(() => ordersUpdateManyWithoutUsersNestedInputSchema).optional(),
-  carts: z.lazy(() => cartsUpdateManyWithoutUsersNestedInputSchema).optional()
-}).strict();
-
-export const usersUncheckedUpdateWithoutHashesInputSchema: z.ZodType<Prisma.usersUncheckedUpdateWithoutHashesInput> = z.object({
-  id: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  password: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  sex: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  phone: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  address: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
-  orders: z.lazy(() => ordersUncheckedUpdateManyWithoutUsersNestedInputSchema).optional(),
-  carts: z.lazy(() => cartsUncheckedUpdateManyWithoutUsersNestedInputSchema).optional()
-}).strict();
-
 export const usersCreateWithoutAddressesInputSchema: z.ZodType<Prisma.usersCreateWithoutAddressesInput> = z.object({
   id: z.string().optional(),
   name: z.string(),
@@ -2554,8 +2250,7 @@ export const usersCreateWithoutAddressesInputSchema: z.ZodType<Prisma.usersCreat
   email: z.string(),
   phone: z.string(),
   orders: z.lazy(() => ordersCreateNestedManyWithoutUsersInputSchema).optional(),
-  carts: z.lazy(() => cartsCreateNestedManyWithoutUsersInputSchema).optional(),
-  hashes: z.lazy(() => hashesCreateNestedManyWithoutUsersInputSchema).optional()
+  carts: z.lazy(() => cartsCreateNestedManyWithoutUsersInputSchema).optional()
 }).strict();
 
 export const usersUncheckedCreateWithoutAddressesInputSchema: z.ZodType<Prisma.usersUncheckedCreateWithoutAddressesInput> = z.object({
@@ -2566,8 +2261,7 @@ export const usersUncheckedCreateWithoutAddressesInputSchema: z.ZodType<Prisma.u
   email: z.string(),
   phone: z.string(),
   orders: z.lazy(() => ordersUncheckedCreateNestedManyWithoutUsersInputSchema).optional(),
-  carts: z.lazy(() => cartsUncheckedCreateNestedManyWithoutUsersInputSchema).optional(),
-  hashes: z.lazy(() => hashesUncheckedCreateNestedManyWithoutUsersInputSchema).optional()
+  carts: z.lazy(() => cartsUncheckedCreateNestedManyWithoutUsersInputSchema).optional()
 }).strict();
 
 export const usersCreateOrConnectWithoutAddressesInputSchema: z.ZodType<Prisma.usersCreateOrConnectWithoutAddressesInput> = z.object({
@@ -2726,8 +2420,7 @@ export const usersCreateWithoutOrdersInputSchema: z.ZodType<Prisma.usersCreateWi
   email: z.string(),
   phone: z.string(),
   addresses: z.lazy(() => addressesCreateNestedOneWithoutUsersInputSchema),
-  carts: z.lazy(() => cartsCreateNestedManyWithoutUsersInputSchema).optional(),
-  hashes: z.lazy(() => hashesCreateNestedManyWithoutUsersInputSchema).optional()
+  carts: z.lazy(() => cartsCreateNestedManyWithoutUsersInputSchema).optional()
 }).strict();
 
 export const usersUncheckedCreateWithoutOrdersInputSchema: z.ZodType<Prisma.usersUncheckedCreateWithoutOrdersInput> = z.object({
@@ -2738,8 +2431,7 @@ export const usersUncheckedCreateWithoutOrdersInputSchema: z.ZodType<Prisma.user
   email: z.string(),
   phone: z.string(),
   address: z.number().int(),
-  carts: z.lazy(() => cartsUncheckedCreateNestedManyWithoutUsersInputSchema).optional(),
-  hashes: z.lazy(() => hashesUncheckedCreateNestedManyWithoutUsersInputSchema).optional()
+  carts: z.lazy(() => cartsUncheckedCreateNestedManyWithoutUsersInputSchema).optional()
 }).strict();
 
 export const usersCreateOrConnectWithoutOrdersInputSchema: z.ZodType<Prisma.usersCreateOrConnectWithoutOrdersInput> = z.object({
@@ -2783,8 +2475,7 @@ export const usersUpdateWithoutOrdersInputSchema: z.ZodType<Prisma.usersUpdateWi
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   phone: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   addresses: z.lazy(() => addressesUpdateOneRequiredWithoutUsersNestedInputSchema).optional(),
-  carts: z.lazy(() => cartsUpdateManyWithoutUsersNestedInputSchema).optional(),
-  hashes: z.lazy(() => hashesUpdateManyWithoutUsersNestedInputSchema).optional()
+  carts: z.lazy(() => cartsUpdateManyWithoutUsersNestedInputSchema).optional()
 }).strict();
 
 export const usersUncheckedUpdateWithoutOrdersInputSchema: z.ZodType<Prisma.usersUncheckedUpdateWithoutOrdersInput> = z.object({
@@ -2795,8 +2486,7 @@ export const usersUncheckedUpdateWithoutOrdersInputSchema: z.ZodType<Prisma.user
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   phone: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   address: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
-  carts: z.lazy(() => cartsUncheckedUpdateManyWithoutUsersNestedInputSchema).optional(),
-  hashes: z.lazy(() => hashesUncheckedUpdateManyWithoutUsersNestedInputSchema).optional()
+  carts: z.lazy(() => cartsUncheckedUpdateManyWithoutUsersNestedInputSchema).optional()
 }).strict();
 
 export const orderDetailsUpsertWithWhereUniqueWithoutOrdersInputSchema: z.ZodType<Prisma.orderDetailsUpsertWithWhereUniqueWithoutOrdersInput> = z.object({
@@ -2998,8 +2688,7 @@ export const usersCreateWithoutCartsInputSchema: z.ZodType<Prisma.usersCreateWit
   email: z.string(),
   phone: z.string(),
   addresses: z.lazy(() => addressesCreateNestedOneWithoutUsersInputSchema),
-  orders: z.lazy(() => ordersCreateNestedManyWithoutUsersInputSchema).optional(),
-  hashes: z.lazy(() => hashesCreateNestedManyWithoutUsersInputSchema).optional()
+  orders: z.lazy(() => ordersCreateNestedManyWithoutUsersInputSchema).optional()
 }).strict();
 
 export const usersUncheckedCreateWithoutCartsInputSchema: z.ZodType<Prisma.usersUncheckedCreateWithoutCartsInput> = z.object({
@@ -3010,8 +2699,7 @@ export const usersUncheckedCreateWithoutCartsInputSchema: z.ZodType<Prisma.users
   email: z.string(),
   phone: z.string(),
   address: z.number().int(),
-  orders: z.lazy(() => ordersUncheckedCreateNestedManyWithoutUsersInputSchema).optional(),
-  hashes: z.lazy(() => hashesUncheckedCreateNestedManyWithoutUsersInputSchema).optional()
+  orders: z.lazy(() => ordersUncheckedCreateNestedManyWithoutUsersInputSchema).optional()
 }).strict();
 
 export const usersCreateOrConnectWithoutCartsInputSchema: z.ZodType<Prisma.usersCreateOrConnectWithoutCartsInput> = z.object({
@@ -3067,8 +2755,7 @@ export const usersUpdateWithoutCartsInputSchema: z.ZodType<Prisma.usersUpdateWit
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   phone: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   addresses: z.lazy(() => addressesUpdateOneRequiredWithoutUsersNestedInputSchema).optional(),
-  orders: z.lazy(() => ordersUpdateManyWithoutUsersNestedInputSchema).optional(),
-  hashes: z.lazy(() => hashesUpdateManyWithoutUsersNestedInputSchema).optional()
+  orders: z.lazy(() => ordersUpdateManyWithoutUsersNestedInputSchema).optional()
 }).strict();
 
 export const usersUncheckedUpdateWithoutCartsInputSchema: z.ZodType<Prisma.usersUncheckedUpdateWithoutCartsInput> = z.object({
@@ -3079,8 +2766,7 @@ export const usersUncheckedUpdateWithoutCartsInputSchema: z.ZodType<Prisma.users
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   phone: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   address: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
-  orders: z.lazy(() => ordersUncheckedUpdateManyWithoutUsersNestedInputSchema).optional(),
-  hashes: z.lazy(() => hashesUncheckedUpdateManyWithoutUsersNestedInputSchema).optional()
+  orders: z.lazy(() => ordersUncheckedUpdateManyWithoutUsersNestedInputSchema).optional()
 }).strict();
 
 export const booksUpsertWithoutCartsInputSchema: z.ZodType<Prisma.booksUpsertWithoutCartsInput> = z.object({
@@ -3130,10 +2816,6 @@ export const cartsCreateManyUsersInputSchema: z.ZodType<Prisma.cartsCreateManyUs
   quantity: z.number().int().optional()
 }).strict();
 
-export const hashesCreateManyUsersInputSchema: z.ZodType<Prisma.hashesCreateManyUsersInput> = z.object({
-  key: z.string()
-}).strict();
-
 export const ordersUpdateWithoutUsersInputSchema: z.ZodType<Prisma.ordersUpdateWithoutUsersInput> = z.object({
   id: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   order_date: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -3172,18 +2854,6 @@ export const cartsUncheckedUpdateManyWithoutUsersInputSchema: z.ZodType<Prisma.c
   quantity: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
-export const hashesUpdateWithoutUsersInputSchema: z.ZodType<Prisma.hashesUpdateWithoutUsersInput> = z.object({
-  key: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-}).strict();
-
-export const hashesUncheckedUpdateWithoutUsersInputSchema: z.ZodType<Prisma.hashesUncheckedUpdateWithoutUsersInput> = z.object({
-  key: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-}).strict();
-
-export const hashesUncheckedUpdateManyWithoutUsersInputSchema: z.ZodType<Prisma.hashesUncheckedUpdateManyWithoutUsersInput> = z.object({
-  key: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-}).strict();
-
 export const usersCreateManyAddressesInputSchema: z.ZodType<Prisma.usersCreateManyAddressesInput> = z.object({
   id: z.string().optional(),
   name: z.string(),
@@ -3201,8 +2871,7 @@ export const usersUpdateWithoutAddressesInputSchema: z.ZodType<Prisma.usersUpdat
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   phone: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   orders: z.lazy(() => ordersUpdateManyWithoutUsersNestedInputSchema).optional(),
-  carts: z.lazy(() => cartsUpdateManyWithoutUsersNestedInputSchema).optional(),
-  hashes: z.lazy(() => hashesUpdateManyWithoutUsersNestedInputSchema).optional()
+  carts: z.lazy(() => cartsUpdateManyWithoutUsersNestedInputSchema).optional()
 }).strict();
 
 export const usersUncheckedUpdateWithoutAddressesInputSchema: z.ZodType<Prisma.usersUncheckedUpdateWithoutAddressesInput> = z.object({
@@ -3213,8 +2882,7 @@ export const usersUncheckedUpdateWithoutAddressesInputSchema: z.ZodType<Prisma.u
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   phone: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   orders: z.lazy(() => ordersUncheckedUpdateManyWithoutUsersNestedInputSchema).optional(),
-  carts: z.lazy(() => cartsUncheckedUpdateManyWithoutUsersNestedInputSchema).optional(),
-  hashes: z.lazy(() => hashesUncheckedUpdateManyWithoutUsersNestedInputSchema).optional()
+  carts: z.lazy(() => cartsUncheckedUpdateManyWithoutUsersNestedInputSchema).optional()
 }).strict();
 
 export const usersUncheckedUpdateManyWithoutAddressesInputSchema: z.ZodType<Prisma.usersUncheckedUpdateManyWithoutAddressesInput> = z.object({
@@ -3386,68 +3054,6 @@ export const usersFindUniqueOrThrowArgsSchema: z.ZodType<Prisma.usersFindUniqueO
   select: usersSelectSchema.optional(),
   include: usersIncludeSchema.optional(),
   where: usersWhereUniqueInputSchema,
-}).strict() ;
-
-export const hashesFindFirstArgsSchema: z.ZodType<Prisma.hashesFindFirstArgs> = z.object({
-  select: hashesSelectSchema.optional(),
-  include: hashesIncludeSchema.optional(),
-  where: hashesWhereInputSchema.optional(),
-  orderBy: z.union([ hashesOrderByWithRelationInputSchema.array(),hashesOrderByWithRelationInputSchema ]).optional(),
-  cursor: hashesWhereUniqueInputSchema.optional(),
-  take: z.number().optional(),
-  skip: z.number().optional(),
-  distinct: z.union([ HashesScalarFieldEnumSchema,HashesScalarFieldEnumSchema.array() ]).optional(),
-}).strict() ;
-
-export const hashesFindFirstOrThrowArgsSchema: z.ZodType<Prisma.hashesFindFirstOrThrowArgs> = z.object({
-  select: hashesSelectSchema.optional(),
-  include: hashesIncludeSchema.optional(),
-  where: hashesWhereInputSchema.optional(),
-  orderBy: z.union([ hashesOrderByWithRelationInputSchema.array(),hashesOrderByWithRelationInputSchema ]).optional(),
-  cursor: hashesWhereUniqueInputSchema.optional(),
-  take: z.number().optional(),
-  skip: z.number().optional(),
-  distinct: z.union([ HashesScalarFieldEnumSchema,HashesScalarFieldEnumSchema.array() ]).optional(),
-}).strict() ;
-
-export const hashesFindManyArgsSchema: z.ZodType<Prisma.hashesFindManyArgs> = z.object({
-  select: hashesSelectSchema.optional(),
-  include: hashesIncludeSchema.optional(),
-  where: hashesWhereInputSchema.optional(),
-  orderBy: z.union([ hashesOrderByWithRelationInputSchema.array(),hashesOrderByWithRelationInputSchema ]).optional(),
-  cursor: hashesWhereUniqueInputSchema.optional(),
-  take: z.number().optional(),
-  skip: z.number().optional(),
-  distinct: z.union([ HashesScalarFieldEnumSchema,HashesScalarFieldEnumSchema.array() ]).optional(),
-}).strict() ;
-
-export const hashesAggregateArgsSchema: z.ZodType<Prisma.hashesAggregateArgs> = z.object({
-  where: hashesWhereInputSchema.optional(),
-  orderBy: z.union([ hashesOrderByWithRelationInputSchema.array(),hashesOrderByWithRelationInputSchema ]).optional(),
-  cursor: hashesWhereUniqueInputSchema.optional(),
-  take: z.number().optional(),
-  skip: z.number().optional(),
-}).strict() ;
-
-export const hashesGroupByArgsSchema: z.ZodType<Prisma.hashesGroupByArgs> = z.object({
-  where: hashesWhereInputSchema.optional(),
-  orderBy: z.union([ hashesOrderByWithAggregationInputSchema.array(),hashesOrderByWithAggregationInputSchema ]).optional(),
-  by: HashesScalarFieldEnumSchema.array(),
-  having: hashesScalarWhereWithAggregatesInputSchema.optional(),
-  take: z.number().optional(),
-  skip: z.number().optional(),
-}).strict() ;
-
-export const hashesFindUniqueArgsSchema: z.ZodType<Prisma.hashesFindUniqueArgs> = z.object({
-  select: hashesSelectSchema.optional(),
-  include: hashesIncludeSchema.optional(),
-  where: hashesWhereUniqueInputSchema,
-}).strict() ;
-
-export const hashesFindUniqueOrThrowArgsSchema: z.ZodType<Prisma.hashesFindUniqueOrThrowArgs> = z.object({
-  select: hashesSelectSchema.optional(),
-  include: hashesIncludeSchema.optional(),
-  where: hashesWhereUniqueInputSchema,
 }).strict() ;
 
 export const addressesFindFirstArgsSchema: z.ZodType<Prisma.addressesFindFirstArgs> = z.object({
@@ -3864,50 +3470,6 @@ export const usersUpdateManyArgsSchema: z.ZodType<Prisma.usersUpdateManyArgs> = 
 
 export const usersDeleteManyArgsSchema: z.ZodType<Prisma.usersDeleteManyArgs> = z.object({
   where: usersWhereInputSchema.optional(),
-}).strict() ;
-
-export const hashesCreateArgsSchema: z.ZodType<Prisma.hashesCreateArgs> = z.object({
-  select: hashesSelectSchema.optional(),
-  include: hashesIncludeSchema.optional(),
-  data: z.union([ hashesCreateInputSchema,hashesUncheckedCreateInputSchema ]),
-}).strict() ;
-
-export const hashesUpsertArgsSchema: z.ZodType<Prisma.hashesUpsertArgs> = z.object({
-  select: hashesSelectSchema.optional(),
-  include: hashesIncludeSchema.optional(),
-  where: hashesWhereUniqueInputSchema,
-  create: z.union([ hashesCreateInputSchema,hashesUncheckedCreateInputSchema ]),
-  update: z.union([ hashesUpdateInputSchema,hashesUncheckedUpdateInputSchema ]),
-}).strict() ;
-
-export const hashesCreateManyArgsSchema: z.ZodType<Prisma.hashesCreateManyArgs> = z.object({
-  data: z.union([ hashesCreateManyInputSchema,hashesCreateManyInputSchema.array() ]),
-}).strict() ;
-
-export const hashesCreateManyAndReturnArgsSchema: z.ZodType<Prisma.hashesCreateManyAndReturnArgs> = z.object({
-  data: z.union([ hashesCreateManyInputSchema,hashesCreateManyInputSchema.array() ]),
-}).strict() ;
-
-export const hashesDeleteArgsSchema: z.ZodType<Prisma.hashesDeleteArgs> = z.object({
-  select: hashesSelectSchema.optional(),
-  include: hashesIncludeSchema.optional(),
-  where: hashesWhereUniqueInputSchema,
-}).strict() ;
-
-export const hashesUpdateArgsSchema: z.ZodType<Prisma.hashesUpdateArgs> = z.object({
-  select: hashesSelectSchema.optional(),
-  include: hashesIncludeSchema.optional(),
-  data: z.union([ hashesUpdateInputSchema,hashesUncheckedUpdateInputSchema ]),
-  where: hashesWhereUniqueInputSchema,
-}).strict() ;
-
-export const hashesUpdateManyArgsSchema: z.ZodType<Prisma.hashesUpdateManyArgs> = z.object({
-  data: z.union([ hashesUpdateManyMutationInputSchema,hashesUncheckedUpdateManyInputSchema ]),
-  where: hashesWhereInputSchema.optional(),
-}).strict() ;
-
-export const hashesDeleteManyArgsSchema: z.ZodType<Prisma.hashesDeleteManyArgs> = z.object({
-  where: hashesWhereInputSchema.optional(),
 }).strict() ;
 
 export const addressesCreateArgsSchema: z.ZodType<Prisma.addressesCreateArgs> = z.object({

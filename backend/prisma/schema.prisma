@@ -37,15 +37,6 @@ model users {
 
   orders orders[]
   carts  carts[]
-  hashes hashes[]
-}
-
-model hashes {
-  // NOTE: 사용자 해시를 저장하는 테이블입니다.
-  id  String @id
-  key String
-
-  users users @relation(fields: [id], references: [id])
 }
 
 model addresses {
