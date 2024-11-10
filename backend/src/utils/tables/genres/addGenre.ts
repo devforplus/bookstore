@@ -9,9 +9,9 @@ import { client } from "src/connectors";
  * @returns
  */
 export const addGenre = async (genre: string) => {
-  return await client.genres.create({
-    data: {
-      genre,
-    },
-  });
+	return client.genres.create({
+		data: {
+			genre,
+		},
+	});
 };

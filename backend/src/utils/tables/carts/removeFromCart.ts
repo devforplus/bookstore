@@ -7,12 +7,12 @@ import { client } from "src/connectors";
  * @param bookId 책 ID
  */
 export const removeFromCart = async (userId: string, bookId: string) => {
-  return await client.carts.delete({
-    where: {
-      cart_owner_id_book_id: {
-        cart_owner_id: userId,
-        book_id: bookId,
-      },
-    },
-  });
+	return client.carts.delete({
+		where: {
+			cart_owner_id_book_id: {
+				cart_owner_id: userId,
+				book_id: bookId,
+			},
+		},
+	});
 };

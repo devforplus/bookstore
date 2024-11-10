@@ -14,7 +14,7 @@ type Books = z.infer<typeof booksCreateManyInputSchema>;
  * @returns
  */
 export const addBooks = async (books: Books) => {
-	return await client.books.createMany({
+	return client.books.createMany({
 		data: books,
 	});
 };

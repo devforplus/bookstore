@@ -6,10 +6,10 @@ import { client } from "src/connectors";
  * @param bookId 도서 ID
  * @returns
  */
-export const findBookById = async (bookId: string) => {
-  return await client.books.findFirst({
-    where: {
-      id: bookId,
-    },
-  });
+export const findBookById = (bookId: string) => {
+	return client.books.findFirst({
+		where: {
+			id: bookId,
+		},
+	});
 };

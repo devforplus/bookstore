@@ -8,13 +8,13 @@ import { client } from "src/connectors";
  * @returns
  */
 export const cancelOrder = async (userId: string, orderId: string) => {
-  return await client.orders.updateMany({
-    where: {
-      orderer: userId,
-      id: orderId,
-    },
-    data: {
-      canceled: new Date(),
-    },
-  });
+	return client.orders.updateMany({
+		where: {
+			orderer: userId,
+			id: orderId,
+		},
+		data: {
+			canceled: new Date(),
+		},
+	});
 };

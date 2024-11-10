@@ -17,7 +17,7 @@ export const addUser = async (user: User) => {
 	// 비밀번호 암호화
 	const { hashed } = generatePasswordWithHash(password);
 
-	return await client.users.create({
+	return client.users.create({
 		data: {
 			// 기존 사용자 데이터
 			...user,

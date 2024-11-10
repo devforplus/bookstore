@@ -5,5 +5,5 @@ import { client } from "src/connectors";
  * @returns
  */
 export const getAllGenres = async () => {
-  return await client.genres.findMany();
+	return client.genres.findMany();
 };

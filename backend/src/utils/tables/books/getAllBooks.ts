@@ -5,5 +5,5 @@ import { client } from "src/connectors";
  * @returns
  */
 export const getAllBooks = async () => {
-  return await client.books.findMany();
+	return client.books.findMany();
 };

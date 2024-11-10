@@ -7,7 +7,7 @@ import { client } from "src/connectors";
  * @returns
  */
 export const findUser = async (userId: string) => {
-	return await client.users.findFirst({
+	return client.users.findFirst({
 		where: {
 			id: userId,
 		},

@@ -7,12 +7,12 @@ import { client } from "src/connectors";
  * @param genre 새로운 장르 이름
  */
 export const updateGenre = async (genreId: number, genre: string) => {
-  return await client.genres.update({
-    where: {
-      id: genreId,
-    },
-    data: {
-      genre,
-    },
-  });
+	return client.genres.update({
+		where: {
+			id: genreId,
+		},
+		data: {
+			genre,
+		},
+	});
 };

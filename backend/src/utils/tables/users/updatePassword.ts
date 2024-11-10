@@ -10,7 +10,7 @@ import { client } from "src/connectors";
  * @returns
  */
 export const updatePassword = async (userId: string, newPassword: string) => {
-	return await client.users.update({
+	return client.users.update({
 		where: {
 			id: userId,
 		},

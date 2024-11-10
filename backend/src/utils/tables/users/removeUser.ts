@@ -9,7 +9,7 @@ import { client } from "src/connectors";
  * @returns
  */
 export const removeUser = async (userId: string) => {
-	return await client.users.delete({
+	return client.users.delete({
 		where: {
 			id: userId,
 		},

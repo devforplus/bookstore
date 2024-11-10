@@ -9,9 +9,9 @@ import { client } from "src/connectors";
  * @param userId 사용자 ID
  */
 export const reomveAllInCarts = async (userId: string) => {
-  return await client.carts.deleteMany({
-    where: {
-      cart_owner_id: userId,
-    },
-  });
+	return client.carts.deleteMany({
+		where: {
+			cart_owner_id: userId,
+		},
+	});
 };

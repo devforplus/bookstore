@@ -6,9 +6,9 @@ import { client } from "src/connectors";
  * @param genreId 장르 ID
  */
 export const removeGenre = async (genreId: number) => {
-  return await client.genres.delete({
-    where: {
-      id: genreId,
-    },
-  });
+	return client.genres.delete({
+		where: {
+			id: genreId,
+		},
+	});
 };

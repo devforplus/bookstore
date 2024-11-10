@@ -7,9 +7,9 @@ import { client } from "src/connectors";
  * @returns
  */
 export const getAllBooksInCart = async (userId: string) => {
-  return await client.carts.findMany({
-    where: {
-      cart_owner_id: userId,
-    },
-  });
+	return client.carts.findMany({
+		where: {
+			cart_owner_id: userId,
+		},
+	});
 };
