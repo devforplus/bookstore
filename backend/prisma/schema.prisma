@@ -86,3 +86,20 @@ model carts {
 
   @@id([cart_owner_id, book_id])
 }
+
+// model points {
+//   point Int @default(0)
+
+//   user_id       String          @id
+//   users         users           @relation(fields: [user_id], references: [id])
+//   point_history point_history[]
+// }
+
+// model point_history {
+//   incrementer Int // 증감자 (얼마나 변경됐나)
+//   total       Int // 남은 금액
+//   is_changed  DateTime // 변경 시기
+
+//   user_id String @id
+//   users   points @relation(fields: [user_id], references: [user_id])
+// }
