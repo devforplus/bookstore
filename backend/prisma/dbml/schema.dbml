@@ -50,8 +50,8 @@ Table orders {
 Table orderDetails {
   order_id String [not null]
   book_id String [not null]
-  books books [not null]
   orders orders [not null]
+  books books [not null]
 
   indexes {
     (order_id, book_id) [pk]
@@ -60,7 +60,7 @@ Table orderDetails {
 
 Table genres {
   id Int [pk, increment]
-  genre String [unique, not null]
+  genre String [not null]
   books books [not null]
 }
 
@@ -68,8 +68,8 @@ Table carts {
   cart_owner_id String [not null]
   book_id String [not null]
   quantity Int [not null, default: 1]
-  books books [not null]
   users users [not null]
+  books books [not null]
 
   indexes {
     (cart_owner_id, book_id) [pk]
@@ -82,10 +82,10 @@ Ref: books.genre_id > genres.id
 
 Ref: orders.orderer > users.id
 
-Ref: orderDetails.book_id > books.id
-
 Ref: orderDetails.order_id > orders.id
 
-Ref: carts.book_id > books.id
+Ref: orderDetails.book_id > books.id
 
 Ref: carts.cart_owner_id > users.id
+
+Ref: carts.book_id > books.id

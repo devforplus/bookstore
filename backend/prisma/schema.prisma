@@ -65,15 +65,15 @@ model orders {
 model orderDetails {
   order_id String
   book_id  String
-  books    books  @relation(fields: [book_id], references: [id])
   orders   orders @relation(fields: [order_id], references: [id])
+  books    books  @relation(fields: [book_id], references: [id])
 
   @@id([order_id, book_id])
 }
 
 model genres {
   id    Int     @id @default(autoincrement())
-  genre String  @unique
+  genre String
   books books[]
 }
 
@@ -81,8 +81,8 @@ model carts {
   cart_owner_id String
   book_id       String
   quantity      Int    @default(1)
-  books         books  @relation(fields: [book_id], references: [id])
   users         users  @relation(fields: [cart_owner_id], references: [id])
+  books         books  @relation(fields: [book_id], references: [id])
 
   @@id([cart_owner_id, book_id])
 }
