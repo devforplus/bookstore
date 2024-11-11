@@ -10,9 +10,9 @@ Table users {
   email String [not null]
   phone String [not null]
   address Int [not null]
-  addresses addresses [not null]
-  orders orders [not null]
   carts carts [not null]
+  orders orders [not null]
+  addresses addresses [not null]
 }
 
 Table addresses {
@@ -33,8 +33,8 @@ Table books {
   author String [not null]
   genre_id Int [not null]
   genres genres [not null]
-  orderDetails orderDetails [not null]
   carts carts [not null]
+  orderDetails orderDetails [not null]
 }
 
 Table orders {
@@ -43,15 +43,15 @@ Table orders {
   total_price Int [not null]
   orderer String [not null]
   canceled DateTime
-  users users [not null]
   orderDetails orderDetails [not null]
+  users users [not null]
 }
 
 Table orderDetails {
   order_id String [not null]
   book_id String [not null]
-  orders orders [not null]
   books books [not null]
+  orders orders [not null]
 
   indexes {
     (order_id, book_id) [pk]
@@ -68,8 +68,8 @@ Table carts {
   cart_owner_id String [not null]
   book_id String [not null]
   quantity Int [not null, default: 1]
-  users users [not null]
   books books [not null]
+  users users [not null]
 
   indexes {
     (cart_owner_id, book_id) [pk]
@@ -82,10 +82,10 @@ Ref: books.genre_id > genres.id
 
 Ref: orders.orderer > users.id
 
-Ref: orderDetails.order_id > orders.id
-
 Ref: orderDetails.book_id > books.id
 
-Ref: carts.cart_owner_id > users.id
+Ref: orderDetails.order_id > orders.id
 
 Ref: carts.book_id > books.id
+
+Ref: carts.cart_owner_id > users.id
