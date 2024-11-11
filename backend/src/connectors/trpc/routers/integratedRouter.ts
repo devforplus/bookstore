@@ -12,3 +12,5 @@ export const integratedRouter = router({
 	order: orderRouter,
 	user: userRouter,
 });
+
+export type IntegratedRouter = typeof integratedRouter;
