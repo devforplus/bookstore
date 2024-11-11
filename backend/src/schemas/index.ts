@@ -1,1 +1,1 @@
-export { BookSearchMode, BookSearchModeSchema } from "./bookSearchMode";
+export { type BookSearchMode, BookSearchModeSchema } from "./bookSearchMode";
