@@ -1,4 +1,4 @@
-import { client } from "src/db";
+import { client } from "../../../connectors";
 
 /**
  * 장바구니에서 도서 삭제하는 함수
@@ -7,7 +7,7 @@ import { client } from "src/db";
  * @param bookId 책 ID
  */
 export const removeFromCart = async (userId: string, bookId: string) => {
-	return await client.carts.delete({
+	return client.carts.delete({
 		where: {
 			cart_owner_id_book_id: {
 				cart_owner_id: userId,

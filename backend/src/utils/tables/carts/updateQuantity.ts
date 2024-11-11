@@ -1,8 +1,8 @@
-import { client } from "src/db";
 import { isNullish } from "remeda";
 import { isInteger } from "lodash";
 
 import { removeFromCart } from "./removeFromCart";
+import { client } from "../../../connectors";
 
 /**
  * 주문 수량 수정 함수
@@ -40,9 +40,9 @@ export const updateQuantity = async (
 	const finalQuantity = quantity + incrementer;
 
 	// 1. 수정된 수량 정보가 0 이하라면, 해당 행 제거
-	if (finalQuantity <= 0) return await removeFromCart(userId, bookId);
+	if (finalQuantity <= 0) return removeFromCart(userId, bookId);
 	// 2. 아니라면 수량 조정
-	return await client.carts.update({
+	return client.carts.update({
 		where: {
 			cart_owner_id_book_id: {
 				cart_owner_id: userId,

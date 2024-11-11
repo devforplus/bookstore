@@ -1,6 +1,7 @@
-import { client } from "src/db";
-import { isNonNullish } from "remeda";
+import { isNonNullish, sum } from "remeda";
 import { assert } from "@toss/assert";
+import { client } from "../../../connectors";
+import { findBookById } from "../books";
 
 /**
  * 주문 정보 생성 (기록성 정보)
@@ -11,13 +12,7 @@ import { assert } from "@toss/assert";
 export const createOrder = async (userId: string, bookIds: string[]) => {
 	// 책 정보 가져오기
 	const $books = await client.$transaction(
-		bookIds.map((bookId) =>
-			client.books.findFirst({
-				where: {
-					id: bookId,
-				},
-			}),
-		),
+		bookIds.map((bookId) => findBookById(bookId)),
 	);
 
 	// 유효하지 않은 책 ID 거르기
@@ -27,10 +22,7 @@ export const createOrder = async (userId: string, bookIds: string[]) => {
 		new Error("유효하지 않은 책 ID가 포함되어 있습니다"),
 	);
 
-	const totalPrice = $books.reduce(
-		(totalPrice, book) => totalPrice + book.price,
-		0,
-	);
+	const totalPrice = sum($books.map((book) => book.price));
 
 	// 책 주문 정보 추가하기
 	const result = await client.orders.create({
