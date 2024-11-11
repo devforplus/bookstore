@@ -1,18 +1,21 @@
 {
 	"name": "backend",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "",
 	"type": "module",
 	"exports": {
-		".": "./dist/src/client/index.js"
+		".": "./dist/index.js"
 	},
 	"scripts": {
 		"build": "tsc"
 	},
 	"keywords": [],
 	"author": "",
-	"files": ["./dist"],
+	"files": [
+		"./dist"
+	],
 	"devDependencies": {
+		"@types/cors": "^2.8.17",
 		"@types/express": "^5.0.0",
 		"@types/lodash": "^4.17.13",
 		"@types/node": "^22.8.7",
@@ -28,6 +31,7 @@
 		"@trpc/server": "11.0.0-rc.621",
 		"@types/bcrypt": "^5.0.2",
 		"bcrypt": "^5.1.1",
+		"cors": "^2.8.5",
 		"express": "^4.21.1",
 		"fuse.js": "^7.0.0",
 		"lodash": "^4.17.21",
