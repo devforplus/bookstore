@@ -1,41 +1,38 @@
 {
-  "name": "backend",
-  "version": "0.0.3",
-  "description": "",
-  "type": "module",
-  "main": "./src/index.ts",
-  "exports": {
-    ".": "./dist/src/client/index.js"
-  },
-  "scripts": {
-    "build": "tsc"
-  },
-  "keywords": [],
-  "author": "",
-  "files": [
-    "./dist"
-  ],
-  "devDependencies": {
-    "@types/express": "^5.0.0",
-    "@types/lodash": "^4.17.13",
-    "@types/node": "^22.8.7",
-    "prisma": "^5.22.0",
-    "prisma-dbml-generator": "^0.12.0",
-    "tsx": "^4.19.2",
-    "zod-prisma-types": "^3.1.8"
-  },
-  "dependencies": {
-    "@prisma/client": "5.21.1",
-    "@toss/assert": "^1.2.2",
-    "@trpc/client": "11.0.0-rc.621",
-    "@trpc/server": "11.0.0-rc.621",
-    "@types/bcrypt": "^5.0.2",
-    "bcrypt": "^5.1.1",
-    "express": "^4.21.1",
-    "fuse.js": "^7.0.0",
-    "lodash": "^4.17.21",
-    "radash": "^12.1.0",
-    "remeda": "^2.16.0",
-    "ts-pattern": "^5.5.0"
-  }
+	"name": "backend",
+	"version": "0.0.3",
+	"description": "",
+	"type": "module",
+	"exports": {
+		".": "./dist/src/client/index.js"
+	},
+	"scripts": {
+		"build": "tsc"
+	},
+	"keywords": [],
+	"author": "",
+	"files": ["./dist"],
+	"devDependencies": {
+		"@types/express": "^5.0.0",
+		"@types/lodash": "^4.17.13",
+		"@types/node": "^22.8.7",
+		"prisma": "^5.22.0",
+		"prisma-dbml-generator": "^0.12.0",
+		"tsx": "^4.19.2",
+		"zod-prisma-types": "^3.1.8"
+	},
+	"dependencies": {
+		"@prisma/client": "5.21.1",
+		"@toss/assert": "^1.2.2",
+		"@trpc/client": "11.0.0-rc.621",
+		"@trpc/server": "11.0.0-rc.621",
+		"@types/bcrypt": "^5.0.2",
+		"bcrypt": "^5.1.1",
+		"express": "^4.21.1",
+		"fuse.js": "^7.0.0",
+		"lodash": "^4.17.21",
+		"radash": "^12.1.0",
+		"remeda": "^2.16.0",
+		"ts-pattern": "^5.5.0"
+	}
 }
