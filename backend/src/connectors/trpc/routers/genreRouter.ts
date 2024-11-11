@@ -5,7 +5,7 @@ import {
 	getAllGenres,
 	removeGenre,
 	updateGenre,
-} from "src/utils/tables/genres";
+} from "../../../utils/tables/genres";
 import { z } from "zod";
 
 export const genreRouter = router({

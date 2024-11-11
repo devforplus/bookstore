@@ -1,4 +1,4 @@
-import { client } from "src/connectors";
+import { client } from "../../../connectors";
 import { findBookInCart } from "./findBookInCart";
 import { updateQuantity } from "./updateQuantity";
 

@@ -1,4 +1,4 @@
-import { client } from "src/connectors";
+import { client } from "../../../connectors";
 
 /**
  * 사용자가 장바구니에 넣은 모든 요소를 제거하는 함수

@@ -5,9 +5,9 @@ import {
 	findBookById,
 	findBooksByKeyword,
 	getAllBooks,
-} from "src/utils/tables/books";
+} from "../../../utils/tables/books";
 import { z } from "zod";
-import { BookSearchModeSchema } from "src/schemas";
+import { BookSearchModeSchema } from "../../../schemas";
 
 export const bookRouter = router({
 	getAllBooks: procedure.query(() => getAllBooks()),

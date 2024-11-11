@@ -1,4 +1,4 @@
-import { client } from "src/connectors";
+import { client } from "../../../connectors";
 
 /**
  * 특정 장르를 제거합니다

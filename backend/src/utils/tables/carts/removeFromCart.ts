@@ -1,4 +1,4 @@
-import { client } from "src/connectors";
+import { client } from "../../../connectors";
 
 /**
  * 장바구니에서 도서 삭제하는 함수

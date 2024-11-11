@@ -1,4 +1,4 @@
-import { client } from "src/connectors";
+import { client } from "../../../connectors";
 
 /**
  * 사용자의 장바구니 내용 가져오기

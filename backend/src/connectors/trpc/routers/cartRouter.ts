@@ -5,7 +5,7 @@ import {
 	removeFromCart,
 	reomveAllInCarts,
 	updateQuantity,
-} from "src/utils/tables/carts";
+} from "../../../utils/tables/carts";
 import { procedure, router } from "../trpcClient";
 import { z } from "zod";
 

@@ -1,4 +1,4 @@
-import { client } from "src/connectors";
+import { client } from "../../../connectors";
 
 /**
  * 특정 사용자의 비밀번호를 업데이트합니다.

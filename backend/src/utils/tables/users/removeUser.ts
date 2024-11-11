@@ -1,4 +1,4 @@
-import { client } from "src/connectors";
+import { client } from "../../../connectors";
 
 // TODO: 계정을 삭제하지 않고, 비활성화 모드로 돌리려면 is_deleted 열을 추가하여 처리하세요.
 

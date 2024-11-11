@@ -2,7 +2,7 @@ import { isNullish } from "remeda";
 import { isInteger } from "lodash";
 
 import { removeFromCart } from "./removeFromCart";
-import { client } from "src/connectors";
+import { client } from "../../../connectors";
 
 /**
  * 주문 수량 수정 함수

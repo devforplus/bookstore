@@ -1,6 +1,6 @@
 import { isNull } from "lodash";
 import { findUser } from "./findUser";
-import { comparePassword } from "src/utils/passwordHash";
+import { comparePassword } from "../../../utils/passwordHash";
 
 /**
  * 입력된 비밀번호가 유효한지 검사합니다.

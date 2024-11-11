@@ -1,4 +1,4 @@
-import { cancelOrder, createOrder } from "src/utils/tables/orders";
+import { cancelOrder, createOrder } from "../../../utils/tables/orders";
 import { procedure, router } from "../trpcClient";
 import { z } from "zod";
 

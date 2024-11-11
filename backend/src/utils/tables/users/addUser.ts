@@ -1,8 +1,8 @@
-import { client } from "src/connectors";
+import { client } from "../../../connectors";
 
 import type { z } from "zod";
 import type { usersCreateInputSchema } from "prisma-types";
-import { generatePasswordWithHash } from "src/utils/passwordHash";
+import { generatePasswordWithHash } from "../../../utils/passwordHash";
 
 type User = z.infer<typeof usersCreateInputSchema>;
 

@@ -1,4 +1,4 @@
-import { client } from "src/connectors";
+import { client } from "../../../connectors";
 
 import type { z } from "zod";
 import type { booksCreateManyInputSchema } from "prisma-types";

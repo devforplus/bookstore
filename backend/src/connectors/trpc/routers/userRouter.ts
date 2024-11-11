@@ -7,7 +7,7 @@ import {
 	removeUser,
 	updatePassword,
 	verifyUser,
-} from "src/utils/tables/users";
+} from "../../../utils/tables/users";
 import { isError, isNull } from "lodash";
 import { TRPCError } from "@trpc/server";
 

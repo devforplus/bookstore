@@ -1,6 +1,6 @@
 import { isNonNullish, sum } from "remeda";
 import { assert } from "@toss/assert";
-import { client } from "src/connectors";
+import { client } from "../../../connectors";
 import { findBookById } from "../books";
 
 /**

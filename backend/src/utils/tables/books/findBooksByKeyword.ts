@@ -3,7 +3,7 @@ import { match } from "ts-pattern";
 import { identity, isEqual } from "lodash/fp";
 
 import { getAllBooks } from "./getAllBooks";
-import { BookSearchModeSchema, type BookSearchMode } from "src/schemas";
+import { BookSearchModeSchema, type BookSearchMode } from "../../../schemas";
 
 /**
  * fuse.js를 통한 도서 검색 기능을 제공합니다.

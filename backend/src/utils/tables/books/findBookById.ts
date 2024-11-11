@@ -1,4 +1,4 @@
-import { client } from "src/connectors";
+import { client } from "../../../connectors";
 
 /**
  * 도서 ID에 유효한 책을 탐색하여 반환합니다
