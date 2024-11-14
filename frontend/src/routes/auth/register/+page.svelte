@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Toast from 'typescript-toastify';
 	import { SexSchema } from '$lib/types/Sex';
 	import type { UserWithCredential } from '$lib/types/UserWithCredential';
 	import { Select, Label, Input } from 'flowbite-svelte';

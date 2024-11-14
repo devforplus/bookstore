@@ -1,5 +1,14 @@
+<script lang="ts">
+	import { goto } from '$app/navigation';
+	import { keyword } from '../stores/keyword';
+</script>
+
 <div class="w-full">
-	<form>
+	<form
+		on:submit|preventDefault={() => {
+			goto('/store/search');
+		}}
+	>
 		<label for="search" class="sr-only mb-2 text-sm font-medium text-gray-900 dark:text-white"
 			>Search</label
 		>
@@ -27,6 +36,7 @@
 				class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-4 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
 				placeholder="책 이름을 검색해주세요."
 				required
+				bind:value={$keyword}
 			/>
 			<button
 				type="submit"

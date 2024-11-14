@@ -14,7 +14,7 @@
 	/>
 </svelte:head>
 
-<div class="flex w-screen flex-row justify-center">
+<div class="flex w-screen flex-row justify-center py-2">
 	<div class="container">
 		<slot></slot>
 	</div>
@@ -25,7 +25,7 @@
 		<Toast {...props}>
 			<FireOutline
 				slot="icon"
-				class="h-6 w-6 bg-primary-100 text-primary-500 dark:bg-primary-800 dark:text-primary-200"
+				class="bg-primary-100 text-primary-500 dark:bg-primary-800 dark:text-primary-200 h-6 w-6"
 			/>
 			{props.message}
 		</Toast>

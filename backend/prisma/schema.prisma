@@ -1,0 +1,105 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+generator zod {
+  provider = "zod-prisma-types"
+  output   = "../src/zod"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id        String    @id @default(uuid())
+  name      String
+  password  String
+  sex       String
+  email     String
+  phone     String
+  address   Int
+  carts     carts[]
+  orders    orders[]
+  addresses addresses @relation(fields: [address], references: [id])
+}
+
+model addresses {
+  id              Int     @id @default(autoincrement())
+  zip_code        String
+  address         String
+  detailedAddress String
+  users           users[]
+}
+
+model books {
+  id           String         @id @default(uuid())
+  name         String
+  cost         Int
+  price        Int
+  description  String
+  quantity     Int
+  author       String
+  genre_id     Int
+  genres       genres         @relation(fields: [genre_id], references: [id])
+  carts        carts[]
+  orderDetails orderDetails[]
+}
+
+model orders {
+  id           String         @id @default(uuid())
+  order_date   DateTime       @default(now())
+  total_price  Int
+  orderer      String
+  canceled     DateTime?
+  orderDetails orderDetails[]
+  users        users          @relation(fields: [orderer], references: [id])
+}
+
+model orderDetails {
+  order_id String
+  book_id  String
+  orders   orders @relation(fields: [order_id], references: [id])
+  books    books  @relation(fields: [book_id], references: [id])
+
+  @@id([order_id, book_id])
+}
+
+model genres {
+  id    Int     @id @default(autoincrement())
+  genre String
+  books books[]
+}
+
+model carts {
+  cart_owner_id String
+  book_id       String
+  quantity      Int    @default(1)
+  users         users  @relation(fields: [cart_owner_id], references: [id])
+  books         books  @relation(fields: [book_id], references: [id])
+
+  @@id([cart_owner_id, book_id])
+}
+
+// model points {
+//   point Int @default(0)
+
+//   user_id       String          @id
+//   users         users           @relation(fields: [user_id], references: [id])
+//   point_history point_history[]
+// }
+
+// model point_history {
+//   incrementer Int // 증감자 (얼마나 변경됐나)
+//   total       Int // 남은 금액
+//   is_changed  DateTime // 변경 시기
+
+//   user_id String @id
+//   users   points @relation(fields: [user_id], references: [user_id])
+// }

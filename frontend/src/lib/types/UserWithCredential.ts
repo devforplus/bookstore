@@ -11,7 +11,8 @@ export const UserWithCredentialSchema = z.object({
 	email: z.string().email(),
 	sex: SexSchema,
 	phone: z.string(),
-	delivery_address: z.string(),
+	address: z.string(),
+	detail_address: z.string(),
 });
 
 /**
