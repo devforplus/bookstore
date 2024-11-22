@@ -13,6 +13,7 @@ Table users {
   carts carts [not null]
   orders orders [not null]
   addresses addresses [not null]
+  book_reviews book_review [not null]
 }
 
 Table addresses {
@@ -35,6 +36,7 @@ Table books {
   genres genres [not null]
   carts carts [not null]
   orderDetails orderDetails [not null]
+  book_reviews book_review [not null]
 }
 
 Table orders {
@@ -76,6 +78,19 @@ Table carts {
   }
 }
 
+Table book_review {
+  user_id String [not null]
+  book_id String [not null]
+  rating Int [not null]
+  review String [not null]
+  users users [not null]
+  books books [not null]
+
+  indexes {
+    (user_id, book_id) [pk]
+  }
+}
+
 Ref: users.address > addresses.id
 
 Ref: books.genre_id > genres.id
@@ -89,3 +104,7 @@ Ref: orderDetails.book_id > books.id
 Ref: carts.cart_owner_id > users.id
 
 Ref: carts.book_id > books.id
+
+Ref: book_review.user_id > users.id
+
+Ref: book_review.book_id > books.id

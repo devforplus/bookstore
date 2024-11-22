@@ -18,7 +18,7 @@ datasource db {
 }
 
 model users {
-  id        String    @id @default(uuid())
+  id        String    @id
   name      String
   password  String
   sex       String
@@ -28,6 +28,7 @@ model users {
   carts     carts[]
   orders    orders[]
   addresses addresses @relation(fields: [address], references: [id])
+  book_reviews book_review[]
 }
 
 model addresses {
@@ -50,6 +51,7 @@ model books {
   genres       genres         @relation(fields: [genre_id], references: [id])
   carts        carts[]
   orderDetails orderDetails[]
+  book_reviews book_review[]
 }
 
 model orders {
@@ -103,3 +105,15 @@ model carts {
 //   user_id String @id
 //   users   points @relation(fields: [user_id], references: [user_id])
 // }
+
+model book_review {
+  user_id  String
+  book_id  String
+  rating    Int
+  review    String
+  
+  users     users @relation(fields: [user_id], references: [id])
+  books     books @relation(fields: [book_id], references: [id])
+
+  @@id([user_id, book_id])
+}
