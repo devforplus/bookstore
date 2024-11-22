@@ -48,28 +48,37 @@ export const userRouter = router({
 			updatePassword(userId, newPassword),
 		),
 	verifyUser: procedure
-		.input(
-			z.object({
-				id: z.string(),
-				password: z.string(),
-			}),
-		)
-		.query(async ({ input: { id, password } }) => {
+	.input(
+		z.object({
+			id: z.string(),
+			password: z.string(),
+		}),
+	)
+	.query(async ({ input: { id, password } }) => {
+		try {
 			const result = await verifyUser(id, password);
 
-			// 존재하지 않는 사용자
-			if (isError(result))
-				return new TRPCError({
-					code: "UNAUTHORIZED",
-					message: "존재하지 않는 사용자입니다.",
-				});
 			// 비밀번호 틀림
-			if (!result)
-				return new TRPCError({
+			if (!result) {
+				throw new TRPCError({
 					code: "BAD_REQUEST",
 					message: "비밀번호가 틀렸습니다.",
 				});
+			}
 
-			return result;
-		}),
+			return result; // 비밀번호 일치
+		} catch (error) {
+			if (error instanceof Error && error.message === "사용자 데이터가 존재하지 않습니다.") {
+				throw new TRPCError({
+					code: "UNAUTHORIZED",
+					message: "존재하지 않는 사용자입니다.",
+				});
+			}
+			throw new TRPCError({
+				code: "INTERNAL_SERVER_ERROR",
+				message: "알 수 없는 오류가 발생했습니다.",
+			});
+		}
+	}),
+
 });
