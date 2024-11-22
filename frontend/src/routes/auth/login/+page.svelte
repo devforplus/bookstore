@@ -1,55 +1,55 @@
 <script lang="ts">
-	import Brand from '../../../components/Brand.svelte';
-	import { showToast } from '$lib/showToast';
-	import { Input, Label } from 'flowbite-svelte';
-	import { writable } from 'svelte/store';
-	import type { UserWithCredential } from '$lib/types/UserWithCredential';
+import Brand from "../../../components/Brand.svelte";
+import { showToast } from "$lib/showToast";
+import { Input, Label } from "flowbite-svelte";
+import { writable } from "svelte/store";
+import type { UserWithCredential } from "$lib/types/UserWithCredential";
 
-	const input = writable<Pick<UserWithCredential, 'id' | 'password'>>({
-		id: '',
-		password: ''
-	});
+import { client } from "/Users/easy/Desktop/DB/bookstore/backend/src/client/index";
 
-	// TODO: 비밀번호 보낼 때 평문말고 암호문으로 보내야할랑가
+const input = writable<Pick<UserWithCredential, "id" | "password">>({
+	id: "",
+	password: "",
+});
 
-	/** 로그인 수행 함수 */
-	const login = async () => {
-		const { id, password } = $input;
+// TODO: 비밀번호 보낼 때 평문말고 암호문으로 보내야할랑가
 
-		// 입력 검사
-		if (!id) {
-			showToast({}, '아이디가 입력되지 않았습니다.');
-			return;
+/** 로그인 수행 함수 */
+const login = async () => {
+	const { id, password } = $input;
+	console.log(id,password)
+	console.log("입력값 확인:", $input); // $input 로그 확인
+	console.log("ID:", id, "비밀번호:", password); // ID와 비밀번호 로그 확인
+	// 입력 검사
+	if (!id) {
+		showToast({}, "아이디가 입력되지 않았습니다.");
+		return;
+	}
+	if (!password) {
+		showToast({}, "비밀번호가 입력되지 않았습니다.");
+		return;
+	}
+
+	// 서버에 로그인 요청
+	try {
+		const result = await client.user.verifyUser.query({
+			id: id,
+			password: password,
+		});
+		console.log('로그인 시도:', { id });
+
+		// 응답에 따라 메시지 표시
+		if (result === true) {
+			showToast({}, "로그인에 성공하였습니다.");
+			// 로그인 성공 후 필요한 추가 작업 (예: 리다이렉트)
+		} else {
+			showToast({}, result.message || "로그인 실패");
 		}
-		if (!password) {
-			showToast({}, '비밀번호가 입력되지 않았습니다.');
-			return;
-		}
-
-		// 서버에 로그인 요청
-		try {
-			const response = await fetch('/api/login', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ id, password })
-			});
-
-			const result = await response.json();
-
-			// 응답에 따라 메시지 표시
-			if (result.ok) {
-				showToast({}, result.message);
-				// 로그인 성공 후 필요한 추가 작업 (예: 리다이렉트)
-			} else {
-				showToast({}, result.message);
-			}
-		} catch (error) {
-			console.error('로그인 요청 중 오류 발생:', error);
-			showToast({}, '로그인 요청 중 오류가 발생했습니다.');
-		}
-	};
+	} catch (error) {
+		console.error("로그인 요청 중 오류 발생:", error);
+		showToast({}, "로그인 요청 중 오류가 발생했습니다.");
+	}
+};
 </script>
 
 <div class="flex flex-row place-items-center justify-center gap-2">
