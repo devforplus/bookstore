@@ -7,13 +7,11 @@
 		".": "./dist/index.js"
 	},
 	"scripts": {
-		"build": "tsc"
+		"build": "prisma generate && tsc"
 	},
 	"keywords": [],
 	"author": "",
-	"files": [
-		"./dist"
-	],
+	"files": ["./dist"],
 	"devDependencies": {
 		"@gregoranders/csv": "^0.0.13",
 		"@types/cors": "^2.8.17",
@@ -22,6 +20,7 @@
 		"@types/lodash": "^4.17.13",
 		"@types/node": "^22.8.7",
 		"fs-extra": "^11.2.0",
+		"prisma": "^5.22.0",
 		"prisma-dbml-generator": "^0.12.0",
 		"tsx": "^4.19.2",
 		"typescript": "^5.6.3",
@@ -38,7 +37,6 @@
 		"express": "^4.21.1",
 		"fuse.js": "^7.0.0",
 		"lodash": "^4.17.21",
-		"prisma": "^5.22.0",
 		"radash": "^12.1.0",
 		"remeda": "^2.16.0",
 		"ts-pattern": "^5.5.0",
