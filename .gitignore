@@ -153,3 +153,9 @@ dist
 
 # SvelteKit
 .svelte-kit
+
+# zod-prisma-types 생성물
+.zod
+
+# Turborepo
+.turbo
