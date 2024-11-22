@@ -8,8 +8,9 @@ generator dbml {
 }
 
 generator zod {
-  provider = "zod-prisma-types"
-  output   = "../src/zod"
+  provider         = "zod-prisma-types"
+  useMultipleFiles = true
+  output           = "../.zod"
 }
 
 datasource db {
@@ -18,16 +19,16 @@ datasource db {
 }
 
 model users {
-  id        String    @id
-  name      String
-  password  String
-  sex       String
-  email     String
-  phone     String
-  address   Int
-  carts     carts[]
-  orders    orders[]
-  addresses addresses @relation(fields: [address], references: [id])
+  id           String        @id
+  name         String
+  password     String
+  sex          String
+  email        String
+  phone        String
+  address      Int
+  carts        carts[]
+  orders       orders[]
+  addresses    addresses     @relation(fields: [address], references: [id])
   book_reviews book_review[]
 }
 
@@ -75,7 +76,7 @@ model orderDetails {
 
 model genres {
   id    Int     @id @default(autoincrement())
-  genre String
+  genre String  @unique
   books books[]
 }
 
@@ -107,13 +108,13 @@ model carts {
 // }
 
 model book_review {
-  user_id  String
-  book_id  String
-  rating    Int
-  review    String
-  
-  users     users @relation(fields: [user_id], references: [id])
-  books     books @relation(fields: [book_id], references: [id])
+  user_id String
+  book_id String
+  rating  Int
+  review  String
+
+  users users @relation(fields: [user_id], references: [id])
+  books books @relation(fields: [book_id], references: [id])
 
   @@id([user_id, book_id])
 }

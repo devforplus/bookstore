@@ -62,7 +62,7 @@ Table orderDetails {
 
 Table genres {
   id Int [pk, increment]
-  genre String [not null]
+  genre String [unique, not null]
   books books [not null]
 }
 
