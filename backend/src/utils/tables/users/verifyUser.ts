@@ -15,10 +15,21 @@ import { comparePassword } from "../../../utils/passwordHash";
  * @param password 입력된 비밀번호
  * @returns
  */
+// verifyUser.ts
 export const verifyUser = async (id: string, password: string) => {
-	const user = await findUser(id);
+    console.log("verifyUser 호출됨, id:", id);
+    const user = await findUser(id);
 
-	if (isNull(user)) return new Error("사용자 데이터가 존재하지 않습니다.");
+    if (!user) {
+        console.log("사용자 없음");
+        throw new Error("사용자 데이터가 존재하지 않습니다.");
+    }
 
-	return comparePassword(password, user.password);
+    const isPasswordValid = await comparePassword(password, user.password);
+    if (!isPasswordValid) {
+        console.log("로그인 실패: 비밀번호 불일치");
+        return false;
+    }
+
+    return true;
 };

@@ -8,6 +8,8 @@ import { isUndefined } from "lodash";
 const userlist = readFileSync("./userlist.csv").toString();
 const booklist = readFileSync("./booklist.csv").toString();
 
+//Todo: 데이터 값이 장르만 저장이 됨, 책 정보는 단 하나도 저장이 안됨, 사용자도 저장이 안되는 거 같음, 근데 사용자는 prisma studio에서는 뜸(?)
+
 const users = pipe(
 	new Parser().parse(userlist).slice(1),
 	map((row) => {
@@ -121,6 +123,7 @@ console.log(`장르 데이터 업로드 시작 (${genres.length})`);
 						zip_code: "",
 					},
 				},
+				id: "",
 			});
 		} catch (err) {
 			console.log(`[사용자] ${user.name} 무시됨`);
