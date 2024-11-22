@@ -8,7 +8,7 @@ export const BookSchema = z.object({
 	genre: z.string(),
 	author: z.string(),
 	publishedDate: z.string(),
-
+	bookreview: z.number(),
 	// url은 보통 https:// 시작하는 완전한 URL을 의미하기도 함
 	coverUrl: z.string(),
 });
