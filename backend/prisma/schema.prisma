@@ -7,12 +7,6 @@ generator dbml {
   provider = "prisma-dbml-generator"
 }
 
-generator zod {
-  provider         = "zod-prisma-types"
-  useMultipleFiles = true
-  output           = "../.zod"
-}
-
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
