@@ -1,17 +1,15 @@
 import { client } from "../../../connectors";
-
-import type { z } from "zod";
-import type { usersCreateInputSchema } from "prisma-types";
 import { generatePasswordWithHash } from "../../../utils/passwordHash";
-
-type User = z.infer<typeof usersCreateInputSchema>;
+import type { PrismaMethodParameters } from "src/utils/prisma-types";
 
 /**
  *
  * @param user 사용자 정보
  * @returns
  */
-export const addUser = async (user: User) => {
+export const addUser = async (
+	user: PrismaMethodParameters<"users", "create">["data"],
+) => {
 	const { password } = user;
 
 	// 비밀번호 암호화
