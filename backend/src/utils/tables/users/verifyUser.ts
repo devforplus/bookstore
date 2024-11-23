@@ -1,4 +1,3 @@
-import { isNull } from "lodash";
 import { findUser } from "./findUser";
 import { comparePassword } from "../../../utils/passwordHash";
 

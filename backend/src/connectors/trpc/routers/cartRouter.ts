@@ -10,7 +10,6 @@ import { procedure, router } from "../trpcClient";
 import { z } from "zod";
 
 import { tryit } from "radash";
-import { isError } from "lodash/fp";
 
 export const cartRouter = router({
 	addToCart: procedure

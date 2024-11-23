@@ -1,5 +1,9 @@
-import { procedure, router } from "../trpcClient";
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
+import typia from "typia";
+import { isNullish } from "remeda";
+
+import { procedure, router } from "../trpcClient";
 import {
 	addUser,
 	findUser,
@@ -7,9 +11,6 @@ import {
 	updatePassword,
 	verifyUser,
 } from "../../../utils/tables/users";
-import { isNull } from "lodash";
-import { TRPCError } from "@trpc/server";
-import typia from "typia";
 import type { PrismaMethodParameters } from "src/utils/prisma-types";
 
 export const userRouter = router({
@@ -27,7 +28,7 @@ export const userRouter = router({
 		.query(async ({ input: { userId } }) => {
 			const result = await findUser(userId);
 
-			if (isNull(result))
+			if (isNullish(result))
 				return new TRPCError({
 					code: "BAD_REQUEST",
 					message: "존재하지 않는 사용자입니다.",
