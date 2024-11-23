@@ -1,9 +1,9 @@
 import Fuse from "fuse.js";
 import { match } from "ts-pattern";
-import { identity, isEqual } from "lodash/fp";
 
 import { getAllBooks } from "./getAllBooks";
 import { BookSearchModeSchema, type BookSearchMode } from "../../../schemas";
+import { keys } from "remeda";
 
 /**
  * fuse.js를 통한 도서 검색 기능을 제공합니다.
@@ -25,9 +25,12 @@ export const findBooksByKeyword = async (
 	// 검색 대상 열 (e.g. name, description) 추출
 	const $mode = match(mode)
 		// "all" -> 모든 키
-		.when(isEqual("all"), () => Object.keys(BookSearchModeSchema.Values))
+		.when(
+			(mode) => mode === "all",
+			() => keys(BookSearchModeSchema.Values),
+		)
 		// 그 외 -> 개별 키
-		.otherwise(identity);
+		.otherwise(<T>(value: T): [T] => [value]);
 
 	// 검색 및 결과 반환
 	const fuse = new Fuse(books, {
