@@ -11,6 +11,7 @@
 		"build": "prisma generate && typia generate --input src --output dist && pkgroll",
 		"start": "tsx ./dist/server.ts",
 		"dev": "nodemon --exec \"pnpm build && pnpm start\" src/**/*.ts",
+		"inject": "tsx ./src/inject/injectUser.ts && tsx ./src/inject/injectBook.ts",
 		"prepare": "ts-patch install && typia patch"
 	},
 	"keywords": [],
