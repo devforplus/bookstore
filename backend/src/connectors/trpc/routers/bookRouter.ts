@@ -1,4 +1,6 @@
-import { booksCreateManyInputSchema } from "prisma-types";
+import { z } from "zod";
+import typia from "typia";
+
 import { router, procedure } from "../trpcClient";
 import {
 	addBooks,
@@ -6,8 +8,8 @@ import {
 	findBooksByKeyword,
 	getAllBooks,
 } from "../../../utils/tables/books";
-import { z } from "zod";
 import { BookSearchModeSchema } from "../../../schemas";
+import type { PrismaMethodParameters } from "src/utils/prisma-types";
 
 export const bookRouter = router({
 	getAllBooks: procedure.query(() => getAllBooks()),
@@ -27,7 +29,11 @@ export const bookRouter = router({
 		)
 		.query(({ input: { keyword, mode } }) => findBooksByKeyword(keyword, mode)),
 	addBooks: procedure
-		.input(booksCreateManyInputSchema)
+		.input(
+			typia.createAssert<
+				PrismaMethodParameters<"books", "createMany">["data"]
+			>(),
+		)
 		.mutation(async (books) => {
 			const { input } = books;
 			return addBooks(input);
