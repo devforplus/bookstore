@@ -19,19 +19,20 @@ model users {
   sex          String
   email        String
   phone        String
-  address      Int
   carts        carts[]
-  orders       orders[]
-  addresses    addresses     @relation(fields: [address], references: [id])
   book_reviews book_review[]
+  orders       orders[]
+  addresses    addresses[]
 }
 
 model addresses {
-  id              Int     @id @default(autoincrement())
+  id              Int    @id @default(autoincrement())
   zip_code        String
   address         String
   detailedAddress String
-  users           users[]
+
+  ownerId String
+  owners  users  @relation(fields: [ownerId], references: [id])
 }
 
 model books {
