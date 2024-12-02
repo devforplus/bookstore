@@ -1,5 +1,5 @@
 import { isNullish } from "remeda";
-import { isInteger } from "lodash";
+import { isInt } from "radash";
 
 import { removeFromCart } from "./removeFromCart";
 import { client } from "../../../connectors";
@@ -20,7 +20,7 @@ export const updateQuantity = async (
 	incrementer: number,
 ) => {
 	// === 타입 검증 ===
-	if (!isInteger(incrementer))
+	if (!isInt(incrementer))
 		throw new Error("소수점 단위의 수량 변화를 수행할 수 없습니다");
 
 	// === 수정할 데이터 존재 확인 ===

@@ -1,4 +1,3 @@
-import { genresCreateInputSchema } from "prisma-types";
 import { procedure, router } from "../trpcClient";
 import {
 	addGenre,
@@ -6,12 +5,13 @@ import {
 	removeGenre,
 	updateGenre,
 } from "../../../utils/tables/genres";
+
 import { z } from "zod";
 
 export const genreRouter = router({
 	addGenre: procedure
-		.input(genresCreateInputSchema)
-		.mutation(({ input: { genre } }) => addGenre(genre)),
+		.input(z.string())
+		.mutation(({ input: genre }) => addGenre(genre)),
 	getAllGenres: procedure.query(() => getAllGenres()),
 	removeGenre: procedure
 		.input(z.object({ genreId: z.number().int() }))

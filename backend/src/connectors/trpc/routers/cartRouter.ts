@@ -10,7 +10,6 @@ import { procedure, router } from "../trpcClient";
 import { z } from "zod";
 
 import { tryit } from "radash";
-import { isError } from "lodash/fp";
 
 export const cartRouter = router({
 	addToCart: procedure
@@ -81,7 +80,7 @@ export const cartRouter = router({
 			);
 
 			// 오류 발생 시, 오류 정보 반환
-			if (isError(err))
+			if (err instanceof Error)
 				return {
 					error: err.message,
 				};

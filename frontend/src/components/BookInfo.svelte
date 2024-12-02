@@ -31,6 +31,7 @@
 		<p class="my-1 text-gray-600">{book.author}</p>
 		<p class="my-1 text-gray-600">{book.publishedDate}</p>
 		<p class="my-1 text-gray-600">{Intl.NumberFormat('ko-KR').format(book.price)}원</p>
+		<p class="my-1 text-gray-600">{book.bookreview}</p>
 	</div>
 
 	<div class="flex flex-col items-center gap-4">

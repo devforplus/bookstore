@@ -7,35 +7,32 @@ generator dbml {
   provider = "prisma-dbml-generator"
 }
 
-generator zod {
-  provider = "zod-prisma-types"
-  output   = "../src/zod"
-}
-
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
 model users {
-  id        String    @id @default(uuid())
-  name      String
-  password  String
-  sex       String
-  email     String
-  phone     String
-  address   Int
-  carts     carts[]
-  orders    orders[]
-  addresses addresses @relation(fields: [address], references: [id])
+  id           String        @id
+  name         String
+  password     String
+  sex          String
+  email        String
+  phone        String
+  carts        carts[]
+  book_reviews book_review[]
+  orders       orders[]
+  addresses    addresses[]
 }
 
 model addresses {
-  id              Int     @id @default(autoincrement())
-  zip_code        String
+  id              Int    @id @default(autoincrement())
+  zipCode         String
   address         String
   detailedAddress String
-  users           users[]
+
+  ownerId String
+  owners  users  @relation(fields: [ownerId], references: [id])
 }
 
 model books {
@@ -50,6 +47,7 @@ model books {
   genres       genres         @relation(fields: [genre_id], references: [id])
   carts        carts[]
   orderDetails orderDetails[]
+  book_reviews book_review[]
 }
 
 model orders {
@@ -73,7 +71,7 @@ model orderDetails {
 
 model genres {
   id    Int     @id @default(autoincrement())
-  genre String
+  genre String  @unique
   books books[]
 }
 
@@ -103,3 +101,15 @@ model carts {
 //   user_id String @id
 //   users   points @relation(fields: [user_id], references: [user_id])
 // }
+
+model book_review {
+  user_id String
+  book_id String
+  rating  Int
+  review  String
+
+  users users @relation(fields: [user_id], references: [id])
+  books books @relation(fields: [book_id], references: [id])
+
+  @@id([user_id, book_id])
+}

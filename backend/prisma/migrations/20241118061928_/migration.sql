@@ -47,8 +47,8 @@ CREATE TABLE "orderDetails" (
     "book_id" TEXT NOT NULL,
 
     PRIMARY KEY ("order_id", "book_id"),
-    CONSTRAINT "orderDetails_book_id_fkey" FOREIGN KEY ("book_id") REFERENCES "books" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "orderDetails_order_id_fkey" FOREIGN KEY ("order_id") REFERENCES "orders" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "orderDetails_order_id_fkey" FOREIGN KEY ("order_id") REFERENCES "orders" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "orderDetails_book_id_fkey" FOREIGN KEY ("book_id") REFERENCES "books" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -64,9 +64,18 @@ CREATE TABLE "carts" (
     "quantity" INTEGER NOT NULL DEFAULT 1,
 
     PRIMARY KEY ("cart_owner_id", "book_id"),
-    CONSTRAINT "carts_book_id_fkey" FOREIGN KEY ("book_id") REFERENCES "books" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "carts_cart_owner_id_fkey" FOREIGN KEY ("cart_owner_id") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "carts_cart_owner_id_fkey" FOREIGN KEY ("cart_owner_id") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "carts_book_id_fkey" FOREIGN KEY ("book_id") REFERENCES "books" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
--- CreateIndex
-CREATE UNIQUE INDEX "genres_genre_key" ON "genres"("genre");
+-- CreateTable
+CREATE TABLE "book_review" (
+    "user_id" TEXT NOT NULL,
+    "book_id" TEXT NOT NULL,
+    "rating" INTEGER NOT NULL,
+    "review" TEXT NOT NULL,
+
+    PRIMARY KEY ("user_id", "book_id"),
+    CONSTRAINT "book_review_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "book_review_book_id_fkey" FOREIGN KEY ("book_id") REFERENCES "books" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
