@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const AddBookArgsSchema = z.object({
+	id: z.string(),
 	author: z.string(),
 	name: z.string(),
 	cost: z.number(),
