@@ -12,8 +12,9 @@
 	"scripts": {
 		"prisma": "prisma",
 		"build": "prisma generate && pkgroll --clean-dist",
+		"db:update": "prisma db push --accept-data-loss",
 		"start": "tsx ./src/server.ts",
-		"dev": "nodemon --exec \"pnpm build && pnpm start\" src/**/*.ts prisma/schema.prisma",
+		"dev": "pnpm build && pnpm start",
 		"inject": "tsx ./src/inject/injectUser.ts && tsx ./src/inject/injectBook.ts"
 	},
 	"keywords": [],
@@ -22,7 +23,6 @@
 	"devDependencies": {
 		"@gregoranders/csv": "^0.0.13",
 		"fs-extra": "^11.2.0",
-		"nodemon": "^3.1.7",
 		"pkgroll": "^2.5.1",
 		"prisma": "^6.0.0",
 		"prisma-dbml-generator": "^0.12.0",
