@@ -10,14 +10,12 @@
 		"prisma": "prisma",
 		"build": "prisma generate && pkgroll",
 		"start": "tsx ./dist/server.ts",
-		"dev": "nodemon --exec \"pnpm build && pnpm start\" src/**/*.ts",
+		"dev": "nodemon --exec \"pnpm build && pnpm start\" src/**/*.ts prisma/schema.prisma",
 		"inject": "tsx ./src/inject/injectUser.ts && tsx ./src/inject/injectBook.ts"
 	},
 	"keywords": [],
 	"author": "",
-	"files": [
-		"./dist"
-	],
+	"files": ["./dist"],
 	"devDependencies": {
 		"@gregoranders/csv": "^0.0.13",
 		"fs-extra": "^11.2.0",
