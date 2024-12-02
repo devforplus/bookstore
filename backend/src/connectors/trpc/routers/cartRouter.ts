@@ -10,7 +10,6 @@ import { procedure, router } from "../trpcClient";
 import { z } from "zod";
 
 import { tryit } from "radash";
-import { instanceOf } from "node_modules/ts-pattern/dist/patterns";
 
 export const cartRouter = router({
 	addToCart: procedure
