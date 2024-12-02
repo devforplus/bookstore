@@ -1,6 +1,6 @@
 {
 	"name": "backend",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "",
 	"type": "module",
 	"exports": {
@@ -15,7 +15,9 @@
 	},
 	"keywords": [],
 	"author": "",
-	"files": ["./dist"],
+	"files": [
+		"./dist"
+	],
 	"devDependencies": {
 		"@gregoranders/csv": "^0.0.13",
 		"fs-extra": "^11.2.0",
