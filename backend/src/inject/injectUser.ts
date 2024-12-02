@@ -36,13 +36,7 @@ const users = pipe(
 				password: user.password,
 				phone: user.phone,
 				sex: user.sex,
-				addresses: {
-					create: {
-						address: user.address,
-						detailedAddress: "",
-						zip_code: "",
-					},
-				},
+				address: user.address,
 				id: user.id,
 			});
 		} catch (err) {

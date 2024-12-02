@@ -53,11 +53,7 @@ console.log(`장르 데이터 업로드 시작 (${genres.length})`);
 (async () => {
 	for (const genre of genres) {
 		try {
-			await client.genre.addGenre
-				.mutate({
-					genre,
-				})
-				.then((res) => console.log(res));
+			await client.genre.addGenre.mutate(genre).then((res) => console.log(res));
 		} catch (err) {
 			// @ts-ignore
 			console.log(`[장르] ${genre} 무시됨 (${err?.data?.code})`);
@@ -66,27 +62,20 @@ console.log(`장르 데이터 업로드 시작 (${genres.length})`);
 })();
 
 (async () => {
-	const genres = await client.genre.getAllGenres.query();
-
 	for (const book of books) {
-		const _genre = genres.find((genre) => genre.genre === book.genre);
-
-		if (isNullish(_genre)) {
-			console.log(`[도서 정보] ${book.title} 무시됨 (장르 정보 없음)`);
-			continue;
-		}
-
 		try {
-			await client.book.addBooks.mutate({
-				id: book.isbn,
-				name: book.title,
-				author: book.author,
-				cost: book.price,
-				genre_id: _genre.id,
-				price: book.price,
-				quantity: 10,
-				description: "",
-			});
+			await client.book.addBooks.mutate([
+				{
+					id: book.isbn,
+					name: book.title,
+					author: book.author,
+					cost: book.price,
+					genre: book.genre,
+					price: book.price,
+					quantity: 10,
+					description: "",
+				},
+			]);
 		} catch (err) {
 			// @ts-ignore
 			console.log(`[도서 정보] ${book.title} 무시됨 (${err?.data?.code})`);
