@@ -6,6 +6,7 @@ import { procedure, router } from "../trpcClient";
 import {
 	addUser,
 	findUser,
+	getAllUsers,
 	removeUser,
 	updatePassword,
 	verifyUser,
@@ -36,8 +37,9 @@ export const userRouter = router({
 	removeUser: procedure
 		.input(z.object({ userId: z.string() }))
 		.mutation(({ input: { userId } }) => removeUser(userId)),
+	getAllUsers: procedure.query(getAllUsers),
 	// TODO: 실제로는 이 과정에 쿠키를 추가하여 사용자 인증을 할 수 있지만,
-	//       시간상 쿠키와 쿠키 데이터베이스 등을 구현 및 검증할 수 없으
+	//       시간상 쿠키와 쿠키 데이터베이스 등을 구현 및 검증할 수 없었음.
 	updatePassword: procedure
 		.input(
 			z.object({
