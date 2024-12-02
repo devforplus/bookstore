@@ -1,3 +1,7 @@
+## NOTE
+
+1. `backend/src/client/index.ts`의 기준 경로(예시: `http://localhost:4000`)가 잘못 설정되었을 때 `TypeError: `가 출력될 수 있음.
+
 ## 데이터베이스 내용을 확인할 수 없거나/데이터베이스 파일이 존재하지 않는 경우
 
 Prisma가 데이터베이스를 설정하도록 명령할 수 있습니다.
