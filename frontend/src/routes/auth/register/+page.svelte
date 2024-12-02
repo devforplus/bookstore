@@ -1,74 +1,68 @@
 <script lang="ts">
-	import { SexSchema } from '$lib/types/Sex';
-	import type { UserWithCredential } from '$lib/types/UserWithCredential';
-	import { Select, Label, Input } from 'flowbite-svelte';
-	import { writable } from 'svelte/store';
-	import Brand from '../../../components/Brand.svelte';
-	import { showToast } from '$lib/showToast';
+import { SexSchema } from "$lib/types/Sex";
+import type { UserWithCredential } from "$lib/types/UserWithCredential";
+import { Select, Label, Input } from "flowbite-svelte";
+import { writable } from "svelte/store";
+import Brand from "../../../components/Brand.svelte";
+import { showToast } from "$lib/showToast";
+import { client } from "backend";
 
-	// 사용자 정보를 관리하는 writable 스토어
-	const user = writable<UserWithCredential & { passwordConfirm: string }>({
-		id: '',
-		name: '',
-		password: '',
-		passwordConfirm: '',
-		email: '',
-		phone: '',
-		sex: '남자',
-		delivery_address: ''
-	});
+// 사용자 정보를 관리하는 writable 스토어
+const user = writable<UserWithCredential & { passwordConfirm: string }>({
+	id: "",
+	name: "",
+	password: "",
+	passwordConfirm: "",
+	email: "",
+	phone: "",
+	sex: "남자",
+	address: "",
+	detail_address: "",
+});
 
-	// 성별 선택 옵션 생성
-	const SexSelection: { value: string; name: string }[] = SexSchema.options.map((option) => {
+// 성별 선택 옵션 생성
+const SexSelection: { value: string; name: string }[] = SexSchema.options.map(
+	(option) => {
 		return {
 			value: option,
-			name: option
+			name: option,
 		};
-	});
+	},
+);
 
-	/** 회원가입 수행 함수 */
-	const register = async () => {
-		// 비밀번호와 비밀번호 확인 입력 검사
-		if (!$user.password) {
-			showToast({}, '비밀번호가 입력되지 않았습니다');
-			return;
-		}
+/** 회원가입 수행 함수 */
+const register = async () => {
+	// 비밀번호와 비밀번호 확인 입력 검사
+	if (!$user.password) {
+		showToast({}, "비밀번호가 입력되지 않았습니다");
+		return;
+	}
 
-		if (!$user.passwordConfirm) {
-			showToast({}, '비밀번호 확인이 입력되지 않았습니다');
-			return;
-		}
+	if (!$user.passwordConfirm) {
+		showToast({}, "비밀번호 확인이 입력되지 않았습니다");
+		return;
+	}
 
-		// 비밀번호 일치 여부 검사
-		if ($user.password !== $user.passwordConfirm) {
-			showToast({}, '비밀번호가 일치하지 않습니다.');
-			return;
-		}
+	// 비밀번호 일치 여부 검사
+	if ($user.password !== $user.passwordConfirm) {
+		showToast({}, "비밀번호가 일치하지 않습니다.");
+		return;
+	}
 
-		// 서버에 회원가입 요청
-		try {
-			const response = await fetch('/api/register', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify($user)
-			});
+	// 서버에 회원가입 요청
+	try {
+		const response = await client.user.addUser.mutate({ ...$user });
 
-			const result = await response.json();
+		console.log(response);
 
-			// 응답에 따라 메시지 표시
-			if (result.ok) {
-				showToast({}, result.message);
-			} else {
-				showToast({}, result.message);
-			}
-		} catch (error) {
-			// 네트워크 오류 등 처리
-			console.error('회원가입 요청 중 오류 발생:', error);
-			showToast({}, '회원가입 요청 중 오류가 발생했습니다.');
-		}
-	};
+		showToast({}, "회원가입이 성공적으로 완료되었습니다.");
+	} catch (error) {
+		// 네트워크 오류 등 처리
+		console.error("회원가입 요청 중 오류 발생:", error);
+		console.error(error);
+		showToast({}, "회원가입 요청 중 오류가 발생했습니다.");
+	}
+};
 </script>
 
 <div class="flex flex-row place-items-center justify-center gap-2">
