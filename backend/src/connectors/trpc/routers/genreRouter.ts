@@ -7,16 +7,11 @@ import {
 } from "../../../utils/tables/genres";
 
 import { z } from "zod";
-import typia from "typia";
-
-import type { PrismaMethodParameters } from "src/utils/prisma-types";
 
 export const genreRouter = router({
 	addGenre: procedure
-		.input(
-			typia.createAssert<PrismaMethodParameters<"genres", "create">["data"]>(),
-		)
-		.mutation(({ input: { genre } }) => addGenre(genre)),
+		.input(z.string())
+		.mutation(({ input: genre }) => addGenre(genre)),
 	getAllGenres: procedure.query(() => getAllGenres()),
 	removeGenre: procedure
 		.input(z.object({ genreId: z.number().int() }))

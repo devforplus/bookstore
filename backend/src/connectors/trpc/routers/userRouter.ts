@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import typia from "typia";
 import { isNullish } from "remeda";
 
 import { procedure, router } from "../trpcClient";
@@ -11,13 +10,11 @@ import {
 	updatePassword,
 	verifyUser,
 } from "../../../utils/tables/users";
-import type { PrismaMethodParameters } from "src/utils/prisma-types";
+import { AddUserArgsSchema } from "../../../schemas";
 
 export const userRouter = router({
 	addUser: procedure
-		.input(
-			typia.createAssert<PrismaMethodParameters<"users", "create">["data"]>(),
-		)
+		.input(AddUserArgsSchema)
 		.mutation(({ input: newUser }) => addUser(newUser)),
 	findUser: procedure
 		.input(
