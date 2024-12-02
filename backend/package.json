@@ -12,7 +12,7 @@
 	"scripts": {
 		"prisma": "prisma",
 		"build": "prisma generate && pkgroll --clean-dist",
-		"start": "tsx ./dist/server.ts",
+		"start": "tsx ./src/server.ts",
 		"dev": "nodemon --exec \"pnpm build && pnpm start\" src/**/*.ts prisma/schema.prisma",
 		"inject": "tsx ./src/inject/injectUser.ts && tsx ./src/inject/injectBook.ts"
 	},
