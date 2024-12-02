@@ -4,11 +4,14 @@
 	"description": "",
 	"type": "module",
 	"exports": {
-		".": "./dist/index.js"
+		".": {
+			"default": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
 	},
 	"scripts": {
 		"prisma": "prisma",
-		"build": "prisma generate && pkgroll",
+		"build": "prisma generate && pkgroll --clean-dist",
 		"start": "tsx ./dist/server.ts",
 		"dev": "nodemon --exec \"pnpm build && pnpm start\" src/**/*.ts prisma/schema.prisma",
 		"inject": "tsx ./src/inject/injectUser.ts && tsx ./src/inject/injectBook.ts"
