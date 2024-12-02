@@ -5,7 +5,7 @@ import { Input, Label } from "flowbite-svelte";
 import { writable } from "svelte/store";
 import type { UserWithCredential } from "$lib/types/UserWithCredential";
 
-import { client } from "/Users/easy/Desktop/DB/bookstore/backend/src/client/index";
+import { client } from "backend";
 
 const input = writable<Pick<UserWithCredential, "id" | "password">>({
 	id: "",
@@ -17,7 +17,7 @@ const input = writable<Pick<UserWithCredential, "id" | "password">>({
 /** 로그인 수행 함수 */
 const login = async () => {
 	const { id, password } = $input;
-	console.log(id,password)
+	console.log(id, password);
 	console.log("입력값 확인:", $input); // $input 로그 확인
 	console.log("ID:", id, "비밀번호:", password); // ID와 비밀번호 로그 확인
 	// 입력 검사
@@ -36,7 +36,7 @@ const login = async () => {
 			id: id,
 			password: password,
 		});
-		console.log('로그인 시도:', { id });
+		console.log("로그인 시도:", { id });
 
 		// 응답에 따라 메시지 표시
 		if (result === true) {
