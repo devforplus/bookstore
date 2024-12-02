@@ -17,7 +17,7 @@ Table users {
 
 Table addresses {
   id Int [pk, increment]
-  zip_code String [not null]
+  zipCode String [not null]
   address String [not null]
   detailedAddress String [not null]
   ownerId String [not null]

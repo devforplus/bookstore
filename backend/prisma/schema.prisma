@@ -27,7 +27,7 @@ model users {
 
 model addresses {
   id              Int    @id @default(autoincrement())
-  zip_code        String
+  zipCode         String
   address         String
   detailedAddress String
 
